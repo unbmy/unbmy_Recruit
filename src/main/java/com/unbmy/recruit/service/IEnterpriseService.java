@@ -10,5 +10,6 @@ import java.util.List;
 public interface IEnterpriseService {
 
     List<Enterprise> getAllEnterprise();
+    Enterprise getEnterprise(String username, String password);
 
 }

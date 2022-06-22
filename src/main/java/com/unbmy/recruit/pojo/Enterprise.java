@@ -17,4 +17,7 @@ public class Enterprise implements Account{
 
     @TableLogic
     private Integer isDeleted;
+
+    public Enterprise(String username, String password) {
+    }
 }

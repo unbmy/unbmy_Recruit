@@ -1,5 +1,6 @@
 package com.unbmy.recruit.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.unbmy.recruit.mapper.UserMapper;
 import com.unbmy.recruit.pojo.User;
@@ -24,6 +25,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User getUser(String username, String password) {
-        return userMapper.selectOne(new QueryWrapper<>(new User(username, password)));
+        System.out.println(username + password);
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper();
+        lambdaQueryWrapper.eq(User::getUsername, username)
+                          .eq(User::getPassword, password);
+        return userMapper.selectOne(lambdaQueryWrapper);
     }
 }
