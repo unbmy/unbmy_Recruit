@@ -1,13 +1,20 @@
 package com.unbmy.recruit.controller;
 
 
+import com.unbmy.recruit.pojo.Account;
+import com.unbmy.recruit.pojo.Maintenance;
 import com.unbmy.recruit.pojo.Notice;
+import com.unbmy.recruit.service.IMaintenanceService;
 import com.unbmy.recruit.service.INoticeService;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -18,6 +25,15 @@ import java.util.List;
 public class UserController {
     @Resource
     private INoticeService noticeService;
+    @Resource
+    private IMaintenanceService maintenanceService;
+
+    public String getUploadPath(){
+        ApplicationHome applicationHome = new ApplicationHome(this.getClass());
+        String path = "\\src\\main\\resources\\static\\upload";
+        System.out.println(applicationHome.getDir()+path);
+        return applicationHome.getDir()+path;
+    }
 
     @RequestMapping("/index")
     public ModelAndView index(){
@@ -37,6 +53,22 @@ public class UserController {
         return modelAndView;
     }
 
+    @RequestMapping("/maintenance-upload")
+    public ModelAndView maintenanceUploadHtml(){
+        return new ModelAndView("/user/maintenance-upload");
+    }
+
+    @RequestMapping("/maintenance-upload/upload")
+    public ModelAndView maintenanceUploadAction(@RequestParam String place,
+                                                @RequestParam String description,
+                                                @RequestParam MultipartFile file){
+        if (file.isEmpty()){
+
+        } else {
+
+        }
+        return new ModelAndView("/user/maintenance-upload");
+    }
 
     @RequestMapping("/maintenance-finish")
     public ModelAndView maintenanceFinish(){
@@ -44,8 +76,13 @@ public class UserController {
     }
 
     @RequestMapping("/maintenance-not-finish")
-    public ModelAndView maintenanceNotFinish(){
-        return new ModelAndView("/user/maintenance-not-finish");
+    public ModelAndView maintenanceNotFinish(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+        Account account = (Account) session.getAttribute("account");
+        List<Maintenance> unhandledMaintenance = maintenanceService.getUnhandledMaintenance(account.getId());
+        modelAndView.addObject("unhandledMaintenance", unhandledMaintenance);
+        modelAndView.setViewName("/user/maintenance-not-finish");
+        return modelAndView;
     }
 
 }

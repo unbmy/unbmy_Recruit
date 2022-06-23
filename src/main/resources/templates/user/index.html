@@ -44,8 +44,9 @@
                     <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
                 </div>
                 <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                    <li class="mdui-list-item mdui-ripple"><a href="/user/maintenance-finish">已完成报修</a></li>
-                    <li class="mdui-list-item mdui-ripple"><a href="/user/maintenance-not-finish">待处理报修</a></li>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-upload}">上传报修</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-finish}">已完成报修</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-not-finish}">待处理报修</a>
                 </ul>
             </li>
 

@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>待处理报修</title>
+  <title>住户主页</title>
   <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/layui.css">
   <link rel="icon" href="/images/icon/favicon.ico">
 </head>
 <body class="mdui-theme-primary-blue">
@@ -44,9 +45,9 @@
           <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
         </div>
         <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-          <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-upload}">上传报修</a>
-          <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-finish}">已完成报修</a>
-          <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-not-finish}">待处理报修</a>
+          <li class="mdui-list-item mdui-ripple"><a th:href="@{/user/maintenance-upload}">上传报修</a></li>
+          <li class="mdui-list-item mdui-ripple"><a th:href="@{/user/maintenance-finish}">已完成报修</a></li>
+          <li class="mdui-list-item mdui-ripple"><a th:href="@{/user/maintenance-not-finish}">待处理报修</a></li>
         </ul>
       </li>
 
@@ -83,21 +84,44 @@
   </div>
   <span class="mdui-col-xs-1"></span>
   <div class="mdui-col-xs-8 mdui-m-t-3">
-    <div class="mdui-typo-headline">待处理报修</div>
-    <div class="mdui-typo">
-      <hr/>
-    </div>
-    <div class="mdui-m-t-1" th:each="maintenance:${unhandledMaintenance}">
-      <div class="mdui-row">
-        <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${maintenance.getId()}"
-           th:href="|/maintenance/maintenanceDetail/${maintenance.getId()}|" target="_blank"></a>
-        <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${maintenance.getRealTime()}"></div>
+    <form th:action="@{/user/maintenance-upload/upload}" method="post">
+      <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">报修地点</label>
+        <input class="mdui-textfield-input" type="text" name="place" required />
+        <div class="mdui-textfield-error">地点不能为空</div>
       </div>
-    </div>
+
+      <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">报修描述</label>
+        <textarea class="mdui-textfield-input" type="text" name="description" required></textarea>
+        <div class="mdui-textfield-error">描述不能为空</div>
+      </div>
+
+<!--      <div>-->
+<!--        <input type="datetime-local" class="layui-input"-->
+<!--               name="time" placeholder="请选择时间" required>-->
+<!--      </div>-->
+
+      <div class="mdui-m-t-3">
+        <label>图片描述（可选）</label>
+      </div>
+
+      <div class="mdui-m-t-3">
+        <input class="mdui-ripple mdui-color-white" type="file" name="file"/>
+      </div>
+
+      <div class="mdui-row mdui-m-t-3" style="margin-left: 450px">
+        <div class="mdui-col-xs-4">
+          <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-blue mdui-text-color-white"
+                  type="submit">提交</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 <script src="/js/mdui.min.js"></script>
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/MyJS.js"></script>
+<script src="/js/layui.js"></script>
 </body>
 </html>

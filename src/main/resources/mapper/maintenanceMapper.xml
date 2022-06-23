@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.unbmy.recruit.mapper.MaintenanceMapper">
+
+    <select id="getUnhandledMaintenance" resultType="maintenance" parameterType="long">
+        select id, place, description, photo, time, status, is_deleted from tb_maintenance, mt_user
+        where userId = #{id} and mtId = id;
+    </select>
+
+</mapper>
