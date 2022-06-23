@@ -14,5 +14,5 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
-      table-prefix: db_
+      table-prefix: tb_
 

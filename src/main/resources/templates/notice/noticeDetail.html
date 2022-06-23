@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>公告详情</title>
+  <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
+  <link rel="icon" href="/images/icon/favicon.ico">
+</head>
+<body class="mdui-theme-primary-blue">
+<div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
+  <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">公告详情</span>
+  <div class="mdui-toolbar-spacer"></div>
+  <div class="mdui-col-xs-4">
+    <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
+      <button class="mdui-textfield-icon mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">search</i>
+      </button>
+      <input class="mdui-textfield-input" type="text" placeholder="请输入搜索内容"/>
+      <button class="mdui-textfield-close mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">close</i>
+      </button>
+    </div>
+  </div>
+  <div class="mdui-col-xs-1">
+    <a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon">
+      <i class="mdui-icon material-icons">refresh</i>
+    </a>
+  </div>
+</div>
+
+<h3 class="mdui-text-center mdui-typo-display-1" th:text="${notice.getTopic()}"></h3>
+
+<div class="mdui-text-center mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>
+
+<div class="mdui-typo">
+  <hr/>
+</div>
+
+<p class="mdui-m-t-3 mdui-m-l-5" style="font-size: 18px" th:text="${notice.getContent()}"></p>
+
+<script src="/js/mdui.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/MyJS.js"></script>
+</body>
+</html>

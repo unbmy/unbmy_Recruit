@@ -29,7 +29,12 @@
 
             <li class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
-                <a class="mdui-list-item-content">首页</a>
+                <a class="mdui-list-item-content" th:href="@{/user/index}">首页</a>
+            </li>
+
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">announcement</i>
+                <a class="mdui-list-item-content" th:href="@{/user/all-notice}">所有公告</a>
             </li>
 
             <li class="mdui-collapse-item">
@@ -69,11 +74,6 @@
             </li>
 
             <li class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon material-icons">map</i>
-                <div class="mdui-list-item-content">附近</div>
-            </li>
-
-            <li class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">keyboard_tab</i>
                 <div class="mdui-list-item-content">登出</div>
             </li>
@@ -81,8 +81,18 @@
         </ul>
     </div>
     <span class="mdui-col-xs-1"></span>
-    <div class="mdui-col-xs-8">
-        gsgsgss
+    <div class="mdui-col-xs-8 mdui-m-t-3">
+        <div class="mdui-typo-headline">最新公告</div>
+        <div class="mdui-typo">
+            <hr/>
+        </div>
+        <div class="mdui-m-t-1" th:each="notice:${latestNoticeList}">
+            <div class="mdui-row">
+                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${notice.getTopic()}"
+                   th:href="|/notice/noticeDetail/${notice.getId()}|" target="_blank"></a>
+                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>
+            </div>
+        </div>
     </div>
 </div>
 <script src="/js/mdui.min.js"></script>
