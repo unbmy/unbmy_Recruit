@@ -18,10 +18,11 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
+        System.out.println(account);
         if (account != null){
             return true;
         }
-        response.sendRedirect(request.getContextPath()+"index");
+        response.sendRedirect(request.getContextPath()+"/index");
         return false;
     }
 

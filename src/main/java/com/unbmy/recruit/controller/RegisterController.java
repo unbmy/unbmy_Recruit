@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author Unbmy
@@ -30,14 +32,14 @@ public class RegisterController {
                                      @RequestParam("password") String password,
                                      @RequestParam("repeatPassword") String repeatPassword,
                                      @RequestParam("email") String email,
-                                     @RequestParam("verifyCode") String verifyCode){
-        ModelAndView modelAndView = new ModelAndView();
+                                     @RequestParam("verifyCode") String verifyCode,
+                                     HttpServletResponse response) throws IOException {
         Account account = userService.getUser(username, null);
         if (account == null && password.equals(repeatPassword) && String.valueOf(randomCode).equals(verifyCode)){
             userService.addUser(username, password, email);
         }
-        modelAndView.setViewName("/index");
-        return modelAndView;
+        response.sendRedirect("/index");
+        return new ModelAndView("/index");
     }
 
     @RequestMapping(value = "/enterpriseRegister", method = RequestMethod.POST)
@@ -47,14 +49,14 @@ public class RegisterController {
                                      @RequestParam("enterpriseName") String enterpriseName,
                                      @RequestParam("address") String address,
                                      @RequestParam("phone") String phone,
-                                     @RequestParam("verifyCode") String verifyCode){
-        ModelAndView modelAndView = new ModelAndView();
+                                     @RequestParam("verifyCode") String verifyCode,
+                                     HttpServletResponse response) throws IOException {
         Account account = enterpriseService.getEnterprise(username, null);
         if (account == null && password.equals(repeatPassword) && String.valueOf(randomCode).equals(verifyCode)){
             enterpriseService.addEnterprise(username, password, enterpriseName, address, phone);
         }
-        modelAndView.setViewName("/index");
-        return modelAndView;
+        response.sendRedirect("/index");
+        return new ModelAndView("/index");
     }
 
     @RequestMapping(value = "/usernameCheck", method = RequestMethod.GET)
