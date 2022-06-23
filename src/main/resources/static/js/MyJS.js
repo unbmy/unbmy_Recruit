@@ -21,6 +21,28 @@ function usernameCheck(){
     })
 }
 
+function usernameCheck2(){
+    let username = document.getElementById("ep_register_username").value;
+    $.ajax({
+        url: "/usernameCheck2",
+        type: "get",
+        data: {"username": username},
+        dataType: "text",
+        error: function (status){
+            alert(status);
+        },
+        success: function (data){
+            if (data === "fail"){
+                document.getElementById("register_login_textfield2").classList.add("mdui-textfield-invalid");
+                document.getElementById("register_username_err_msg2").innerText = "该用户名已被注册！";
+            } else if (data === "success"){
+                document.getElementById("register_login_textfield2").classList.remove("mdui-textfield-invalid");
+                document.getElementById("register_username_err_msg2").innerText = "用户名不能为空";
+            }
+        }
+    })
+}
+
 function passwordCheck(){
     let password = document.getElementById("user_register_password").value;
     if (password.length < 8 || password.length > 16){
@@ -29,6 +51,17 @@ function passwordCheck(){
     } else {
         document.getElementById("register_password_textfield").classList.remove("mdui-textfield-invalid");
         document.getElementById("register_password_err_msg").innerText = "密码不能为空";
+    }
+}
+
+function passwordCheck2(){
+    let password = document.getElementById("ep_register_password").value;
+    if (password.length < 8 || password.length > 16){
+        document.getElementById("register_password_textfield2").classList.add("mdui-textfield-invalid");
+        document.getElementById("register_password_err_msg2").innerText = "请输入8至16位长度密码";
+    } else {
+        document.getElementById("register_password_textfield2").classList.remove("mdui-textfield-invalid");
+        document.getElementById("register_password_err_msg2").innerText = "密码不能为空";
     }
 }
 
@@ -41,6 +74,18 @@ function repeatPasswordCheck(){
     } else {
         document.getElementById("register_repeatPassword_textfield").classList.remove("mdui-textfield-invalid");
         document.getElementById("register_repeatPassword_err_msg").innerText = "密码不能为空";
+    }
+}
+
+function repeatPasswordCheck2(){
+    let password = document.getElementById("ep_register_password").value;
+    let repeatPassword = document.getElementById("ep_register_repeatPassword").value;
+    if (password !== repeatPassword){
+        document.getElementById("register_repeatPassword_textfield2").classList.add("mdui-textfield-invalid");
+        document.getElementById("register_repeatPassword_err_msg2").innerText = "两次密码不一致";
+    } else {
+        document.getElementById("register_repeatPassword_textfield2").classList.remove("mdui-textfield-invalid");
+        document.getElementById("register_repeatPassword_err_msg2").innerText = "密码不能为空";
     }
 }
 
@@ -76,6 +121,28 @@ function verifyCodeCheck(){
             } else if (data === "success"){
                 document.getElementById("register_verifyCode_textfield").classList.remove("mdui-textfield-invalid");
                 document.getElementById("register_verifyCode_err_msg").innerText = "请输入6位验证码";
+            }
+        }
+    });
+}
+
+function verifyCodeCheck2(){
+    let verifyCode = document.getElementById("ep_register_verifyCode").value;
+    $.ajax({
+        url: "/verifyCodeCheck",
+        type: "get",
+        data: {"verifyCode": verifyCode},
+        dataType: "text",
+        error: function (status){
+            alert(status);
+        },
+        success: function (data){
+            if (data === "fail"){
+                document.getElementById("register_verifyCode_textfield2").classList.add("mdui-textfield-invalid");
+                document.getElementById("register_verifyCode_err_msg2").innerText = "两次验证码不一致！";
+            } else if (data === "success"){
+                document.getElementById("register_verifyCode_textfield2").classList.remove("mdui-textfield-invalid");
+                document.getElementById("register_verifyCode_err_msg2").innerText = "请输入6位验证码";
             }
         }
     });

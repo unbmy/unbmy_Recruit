@@ -27,7 +27,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
     public Enterprise getEnterprise(String username, String password) {
         LambdaQueryWrapper<Enterprise> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(Enterprise::getUsername, username)
-                          .eq(Enterprise::getPassword, password);
+                          .eq(password!=null, Enterprise::getPassword, password);
         return enterpriseMapper.selectOne(lambdaQueryWrapper);
     }
 

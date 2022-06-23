@@ -1,7 +1,6 @@
 package com.unbmy.recruit.controller;
 
 import com.unbmy.recruit.pojo.Account;
-import com.unbmy.recruit.service.IAdminService;
 import com.unbmy.recruit.service.IEnterpriseService;
 import com.unbmy.recruit.service.IUserService;
 import org.springframework.stereotype.Controller;
@@ -33,17 +32,28 @@ public class RegisterController {
                                      @RequestParam("email") String email,
                                      @RequestParam("verifyCode") String verifyCode){
         ModelAndView modelAndView = new ModelAndView();
-        Account account = null;
-        account = userService.getUser(username, null);
-        if (account != null || !password.equals(repeatPassword) || !String.valueOf(randomCode).equals(verifyCode)){
-            modelAndView.setViewName("/index");
-            return modelAndView;
-        } else {
-            if (userService.addUser(username, password, email) > 0){
-                modelAndView.setViewName("/index");
-                return modelAndView;
-            }
+        Account account = userService.getUser(username, null);
+        if (account == null && password.equals(repeatPassword) && String.valueOf(randomCode).equals(verifyCode)){
+            userService.addUser(username, password, email);
         }
+        modelAndView.setViewName("/index");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/enterpriseRegister", method = RequestMethod.POST)
+    public ModelAndView userRegister(@RequestParam("username") String username,
+                                     @RequestParam("password") String password,
+                                     @RequestParam("repeatPassword") String repeatPassword,
+                                     @RequestParam("enterpriseName") String enterpriseName,
+                                     @RequestParam("address") String address,
+                                     @RequestParam("phone") String phone,
+                                     @RequestParam("verifyCode") String verifyCode){
+        ModelAndView modelAndView = new ModelAndView();
+        Account account = enterpriseService.getEnterprise(username, null);
+        if (account == null && password.equals(repeatPassword) && String.valueOf(randomCode).equals(verifyCode)){
+            enterpriseService.addEnterprise(username, password, enterpriseName, address, phone);
+        }
+        modelAndView.setViewName("/index");
         return modelAndView;
     }
 
@@ -51,6 +61,17 @@ public class RegisterController {
     @ResponseBody
     public String usernameCheck(@RequestParam("username") String username){
         Account account = userService.getUser(username, null);
+        if (account != null){
+            return "fail";
+        } else {
+            return "success";
+        }
+    }
+
+    @RequestMapping(value = "/usernameCheck2", method = RequestMethod.GET)
+    @ResponseBody
+    public String usernameCheck2(@RequestParam("username") String username){
+        Account account = enterpriseService.getEnterprise(username, null);
         if (account != null){
             return "fail";
         } else {
@@ -68,14 +89,15 @@ public class RegisterController {
 
     @RequestMapping(value = "/verifyCodeCheck", method = RequestMethod.GET)
     @ResponseBody
-    public String VerifyCodeCheck(@RequestParam("verifyCode") String verifyCode){
+    public String verifyCodeCheck(@RequestParam("verifyCode") String verifyCode){
         if (verifyCode.length() < 6){
             return "fail";
         }
-        if (randomCode == Integer.parseInt(verifyCode)){
+        if (String.valueOf(randomCode).equals(verifyCode)){
             return "success";
         } else {
             return "fail";
         }
     }
+
 }

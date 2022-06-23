@@ -16,8 +16,7 @@ public class User implements Account{
     private String password;
     private String email;
     @TableLogic
-    Integer isDeleted;
-    Integer isRegistered;
+    private Integer isDeleted;
 
     public User(String username, String password) {
         this.username = username;
