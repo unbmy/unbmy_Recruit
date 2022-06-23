@@ -25,10 +25,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User getUser(String username, String password) {
-        System.out.println(username + password);
         LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper();
         lambdaQueryWrapper.eq(User::getUsername, username)
-                          .eq(User::getPassword, password);
+                          .eq(password!=null, User::getPassword, password);
         return userMapper.selectOne(lambdaQueryWrapper);
+    }
+
+    @Override
+    public int addUser(String username, String password, String email) {
+        return userMapper.insert(new User(username, password, email));
     }
 }

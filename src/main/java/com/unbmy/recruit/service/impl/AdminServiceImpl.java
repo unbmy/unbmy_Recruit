@@ -1,7 +1,6 @@
 package com.unbmy.recruit.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.unbmy.recruit.mapper.AdminMapper;
 import com.unbmy.recruit.pojo.Admin;
 import com.unbmy.recruit.service.IAdminService;

@@ -11,5 +11,6 @@ public interface IUserService {
 
     List<User> getAllUser();
     User getUser(String username, String password);
+    int addUser(String username, String password, String email);
 
 }

@@ -30,4 +30,9 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
                           .eq(Enterprise::getPassword, password);
         return enterpriseMapper.selectOne(lambdaQueryWrapper);
     }
+
+    @Override
+    public int addEnterprise(String username, String password, String enterpriseName, String address, String phone) {
+        return enterpriseMapper.insert(new Enterprise(username, password, enterpriseName, address, phone));
+    }
 }

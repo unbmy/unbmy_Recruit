@@ -5,6 +5,7 @@ import com.unbmy.recruit.pojo.Account;
 import com.unbmy.recruit.service.IAdminService;
 import com.unbmy.recruit.service.IEnterpriseService;
 import com.unbmy.recruit.service.IUserService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,7 +14,7 @@ import javax.annotation.Resource;
 /**
  * @author Unbmy
  */
-@RestController
+@Controller
 public class LoginController {
 
     @Resource
@@ -30,7 +31,8 @@ public class LoginController {
             @RequestParam("identity") String identity){
         ModelAndView modelAndView = new ModelAndView();
         Account account = null;
-        System.out.println(username + password + identity);
+        System.out.println("收到的数据：" +
+                username + password + identity);
         if (StringUtils.isNotEmpty(identity)){
             switch (identity){
                 case "user" :{
@@ -60,7 +62,7 @@ public class LoginController {
             }
             if (account == null){
                 modelAndView.setViewName("/index");
-                modelAndView.addObject("msg", "用户名或密码错误");
+                modelAndView.addObject("login_err_msg", "用户名或密码错误");
             }
         }
         return modelAndView;
