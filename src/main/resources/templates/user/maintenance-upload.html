@@ -84,16 +84,16 @@
   </div>
   <span class="mdui-col-xs-1"></span>
   <div class="mdui-col-xs-8 mdui-m-t-3">
-    <form th:action="@{/user/maintenance-upload/upload}" method="post">
+    <form th:action="@{/user/maintenance-upload/upload}" method="post" enctype="multipart/form-data">
       <div class="mdui-textfield mdui-textfield-floating-label">
         <label class="mdui-textfield-label">报修地点</label>
-        <input class="mdui-textfield-input" type="text" name="place" required />
+        <input class="mdui-textfield-input" type="text" name="place" maxlength="255" required />
         <div class="mdui-textfield-error">地点不能为空</div>
       </div>
 
       <div class="mdui-textfield mdui-textfield-floating-label">
         <label class="mdui-textfield-label">报修描述</label>
-        <textarea class="mdui-textfield-input" type="text" name="description" required></textarea>
+        <textarea class="mdui-textfield-input" type="text" name="description" maxlength="255" required></textarea>
         <div class="mdui-textfield-error">描述不能为空</div>
       </div>
 
@@ -103,12 +103,14 @@
 <!--      </div>-->
 
       <div class="mdui-m-t-3">
-        <label>图片描述（可选）</label>
+        <label>图片描述（可选）,只支持上传png格式图片,大小不可超过10MB</label>
       </div>
 
       <div class="mdui-m-t-3">
         <input class="mdui-ripple mdui-color-white" type="file" name="file"/>
       </div>
+
+      <p th:text="${upload_err_msg}" class="mdui-m-t-1 mdui-text-color-red"></p>
 
       <div class="mdui-row mdui-m-t-3" style="margin-left: 450px">
         <div class="mdui-col-xs-4">

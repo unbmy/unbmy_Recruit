@@ -15,6 +15,7 @@ import java.util.Date;
 public class Maintenance {
 
     private Long id;
+    private String topic;
     private String place;
     private String description;
     private String photo;
@@ -23,7 +24,8 @@ public class Maintenance {
     @TableLogic
     private Integer isDeleted;
 
-    public Maintenance(String place, String description, String photo) {
+    public Maintenance(String topic, String place, String description, String photo) {
+        this.topic = topic;
         this.place = place;
         this.description = description;
         this.photo = photo;
@@ -33,5 +35,9 @@ public class Maintenance {
     public String getRealTime(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(time);
+    }
+
+    public String getRealPhoto(){
+        return "\\upload\\" + photo;
     }
 }

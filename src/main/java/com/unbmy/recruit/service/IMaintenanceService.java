@@ -10,8 +10,8 @@ import java.util.List;
 public interface IMaintenanceService {
 
     List<Maintenance> getUnhandledMaintenance(Long id);
-    List<Maintenance> getCompleteMaintenance();
+    List<Maintenance> getCompleteMaintenance(Long id);
     Maintenance getMaintenanceById(Long id);
-    int addMaintenance(String place, String description, String photo);
+    int addMaintenance(String topic, String place, String description, String photo);
 
 }

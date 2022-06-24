@@ -26,4 +26,5 @@ public class MaintenanceController {
         modelAndView.setViewName("/maintenance/maintenanceDetail");
         return modelAndView;
     }
+
 }

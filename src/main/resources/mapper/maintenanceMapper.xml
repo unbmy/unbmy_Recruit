@@ -4,8 +4,13 @@
 <mapper namespace="com.unbmy.recruit.mapper.MaintenanceMapper">
 
     <select id="getUnhandledMaintenance" resultType="maintenance" parameterType="long">
-        select id, place, description, photo, time, status, is_deleted from tb_maintenance, mt_user
-        where userId = #{id} and mtId = id;
+        select id, topic, place, description, photo, time, status, is_deleted from tb_maintenance, mt_user
+        where userId = #{id} and mtId = id and status = 0;
+    </select>
+
+    <select id="getCompleteMaintenance" resultType="maintenance" parameterType="long">
+        select id, topic, place, description, photo, time, status, is_deleted from tb_maintenance, mt_user
+        where userId = #{id} and mtId = id and status = 1;
     </select>
 
 </mapper>

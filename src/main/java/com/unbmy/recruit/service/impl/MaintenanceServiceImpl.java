@@ -1,7 +1,5 @@
 package com.unbmy.recruit.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.unbmy.recruit.mapper.MaintenanceMapper;
 import com.unbmy.recruit.pojo.Maintenance;
 import com.unbmy.recruit.service.IMaintenanceService;
@@ -24,8 +22,8 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
     }
 
     @Override
-    public List<Maintenance> getCompleteMaintenance() {
-        return null;
+    public List<Maintenance> getCompleteMaintenance(Long id) {
+        return maintenanceMapper.getCompleteMaintenance(id);
     }
 
     @Override
@@ -34,7 +32,7 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
     }
 
     @Override
-    public int addMaintenance(String place, String description, String photo) {
-        return 0;
+    public int addMaintenance(String topic, String place, String description, String photo) {
+        return maintenanceMapper.insert(new Maintenance(topic, place, description, photo));
     }
 }

@@ -9,8 +9,7 @@ class RecruitApplicationTests {
 
     @Test
     void contextLoads() {
-        UserController userController = new UserController();
-        System.out.println(userController.getUploadPath());
+
     }
 
 }

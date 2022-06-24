@@ -6,7 +6,6 @@ import com.unbmy.recruit.pojo.Maintenance;
 import com.unbmy.recruit.pojo.Notice;
 import com.unbmy.recruit.service.IMaintenanceService;
 import com.unbmy.recruit.service.INoticeService;
-import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Unbmy
@@ -27,13 +29,6 @@ public class UserController {
     private INoticeService noticeService;
     @Resource
     private IMaintenanceService maintenanceService;
-
-    public String getUploadPath(){
-        ApplicationHome applicationHome = new ApplicationHome(this.getClass());
-        String path = "\\src\\main\\resources\\static\\upload";
-        System.out.println(applicationHome.getDir()+path);
-        return applicationHome.getDir()+path;
-    }
 
     @RequestMapping("/index")
     public ModelAndView index(){
@@ -59,20 +54,43 @@ public class UserController {
     }
 
     @RequestMapping("/maintenance-upload/upload")
-    public ModelAndView maintenanceUploadAction(@RequestParam String place,
+    public ModelAndView maintenanceUploadAction(@RequestParam String topic,
+                                                @RequestParam String place,
                                                 @RequestParam String description,
-                                                @RequestParam MultipartFile file){
+                                                @RequestParam MultipartFile file) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
         if (file.isEmpty()){
-
+            maintenanceService.addMaintenance(topic, place, description, null);
         } else {
-
+            String originalName = file.getOriginalFilename();
+            String suffix = originalName.substring(originalName.lastIndexOf("."));
+            if (".png".equals(suffix)){
+                String filename = UUID.randomUUID() + suffix;
+                System.out.println(filename);
+                String path = "D:\\Workspace\\Java\\Recruit\\src\\main\\resources\\static\\upload";
+                File newFile = new File(path, filename);
+                File parentFile = newFile.getParentFile();
+                if (!parentFile.exists()){
+                    parentFile.mkdir();
+                }
+                file.transferTo(newFile);
+                maintenanceService.addMaintenance(topic, place, description, filename);
+            } else {
+                modelAndView.addObject("upload_err_msg", "暂不支持上传该格式文件！");
+            }
         }
-        return new ModelAndView("/user/maintenance-upload");
+        modelAndView.setViewName("/user/maintenance-upload");
+        return modelAndView;
     }
 
     @RequestMapping("/maintenance-finish")
-    public ModelAndView maintenanceFinish(){
-        return new ModelAndView("/user/maintenance-finish");
+    public ModelAndView maintenanceFinish(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+        Account account = (Account) session.getAttribute("account");
+        List<Maintenance> completeMaintenance = maintenanceService.getCompleteMaintenance(account.getId());
+        modelAndView.addObject("completeMaintenance", completeMaintenance);
+        modelAndView.setViewName("/user/maintenance-finish");
+        return modelAndView;
     }
 
     @RequestMapping("/maintenance-not-finish")

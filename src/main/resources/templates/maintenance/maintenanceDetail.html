@@ -28,11 +28,47 @@
     </div>
 </div>
 
-<h3 class="mdui-text-center mdui-typo-display-1" th:text="${maintenance.getId()}"></h3>
+<div class="mdui-table-fluid">
+    <table class="mdui-table mdui-table-hoverable">
+        <tbody>
+        <tr>
+            <td>报修编号</td>
+            <td th:text="${maintenance.getId()}"></td>
+        </tr>
+        <tr>
+            <td>报修标题</td>
+            <td th:text="${maintenance.getTopic()}"></td>
+        </tr>
+        <tr>
+            <td>报修地点</td>
+            <td th:text="${maintenance.getPlace()}"></td>
+        </tr>
+        <tr>
+            <td>详细描述</td>
+            <td th:text="${maintenance.getDescription()}"></td>
+        </tr>
 
-<div class="mdui-m-t-3 mdui-m-l-5 mdui-typo-subheading" th:text="${maintenance.getPlace()}"></div>
+        <th:block th:if="${maintenance.getPhoto()==null || maintenance.getPhoto().length()<1}">
+            <tr>
+                <td>照片描述</td>
+                <td>暂无</td>
+            </tr>
+        </th:block>
 
-<p class="mdui-m-t-3 mdui-m-l-5 mdui-typo-subheading" th:text="${maintenance.getDescription()}"></p>
+        <th:block th:if="${maintenance.getPhoto()!=null && maintenance.getPhoto().length()>0}">
+            <tr>
+                <td>照片描述</td>
+                <td><img th:src="${maintenance.getRealPhoto()}" width="250px" height="250px"></td>
+            </tr>
+        </th:block>
+
+        <tr>
+            <td>报修时间</td>
+            <td th:text="${maintenance.getRealTime()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <script src="/js/mdui.min.js"></script>
 <script src="/js/jquery-3.6.0.min.js"></script>

@@ -11,5 +11,6 @@ import java.util.List;
 public interface MaintenanceMapper extends BaseMapper<Maintenance> {
 
     List<Maintenance> getUnhandledMaintenance(Long id);
+    List<Maintenance> getCompleteMaintenance(Long id);
 
 }
