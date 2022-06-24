@@ -8,9 +8,14 @@
         where userId = #{id} and billId = id and status = 1;
     </select>
 
-    <select id="getAllUnfinishedBill" resultType="maintenance" parameterType="long">
+    <select id="getAllUnfinishedBill" resultType="bill" parameterType="long">
         select id, topic, description, cost, bill_time, cost_time, status, is_deleted from tb_bill, bill_user
         where userId = #{id} and billId = id and status = 0;
+    </select>
+
+    <select id="getLatestBill" resultType="bill" parameterType="long">
+        select id, topic, description, cost, bill_time, cost_time, status, is_deleted from tb_bill, bill_user
+        where userId = #{id} and billId = id and status = 0 order by bill_time desc limit 3;
     </select>
 
     <update id="billCost" parameterType="long">

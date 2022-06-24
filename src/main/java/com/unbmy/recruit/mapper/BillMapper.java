@@ -12,6 +12,7 @@ public interface BillMapper extends BaseMapper<Bill> {
 
     List<Bill> getAllCompletedBill(Long id);
     List<Bill> getAllUnfinishedBill(Long id);
+    List<Bill> getLatestBill(Long id);
     void billCost(Long id);
 
 }

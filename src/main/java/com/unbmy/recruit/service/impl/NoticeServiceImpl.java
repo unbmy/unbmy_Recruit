@@ -19,14 +19,16 @@ public class NoticeServiceImpl implements INoticeService {
 
     @Override
     public List<Notice> getAllNotice() {
-        return noticeMapper.selectList(null);
+        QueryWrapper<Notice> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("time");
+        return noticeMapper.selectList(queryWrapper);
     }
 
     @Override
     public List<Notice> getLatestNotice() {
         QueryWrapper<Notice> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("time");
-        queryWrapper.last("limit 5");
+        queryWrapper.last("limit 3");
         return noticeMapper.selectList(queryWrapper);
     }
 

@@ -35,4 +35,9 @@ public class UserServiceImpl implements IUserService {
     public int addUser(String username, String password, String email) {
         return userMapper.insert(new User(username, password, email));
     }
+
+    @Override
+    public int updateUser(User user) {
+        return userMapper.updateById(user);
+    }
 }

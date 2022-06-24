@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>住户主页</title>
     <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
+    <link rel="stylesheet" href="/css/layui.css" media="all">
     <link rel="icon" href="/images/icon/favicon.ico">
 </head>
 <body class="mdui-theme-primary-blue">
@@ -69,8 +70,8 @@
                     <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
                 </div>
                 <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                    <li class="mdui-list-item mdui-ripple">修改邮箱</li>
-                    <li class="mdui-list-item mdui-ripple">修改密码</li>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/modify-email}">修改邮箱</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/modify-password}">修改密码</a>
                 </ul>
             </li>
 
@@ -83,21 +84,63 @@
     </div>
     <span class="mdui-col-xs-1"></span>
     <div class="mdui-col-xs-8 mdui-m-t-3">
-        <div class="mdui-typo-headline">最新公告</div>
+
+        <div class="layui-carousel" id="test1">
+            <div carousel-item>
+                <img src="/images/carousel/1.png">
+                <img src="/images/carousel/2.png">
+                <img src="/images/carousel/3.png">
+            </div>
+        </div>
+
+        <div class="mdui-typo-headline mdui-m-t-3">最新公告</div>
         <div class="mdui-typo">
             <hr/>
         </div>
         <div class="mdui-m-t-1" th:each="notice:${latestNoticeList}">
-            <div class="mdui-row">
+            <div class="mdui-row mdui-p-t-2">
                 <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${notice.getTopic()}"
                    th:href="|/notice/noticeDetail/${notice.getId()}|" target="_blank"></a>
                 <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>
             </div>
         </div>
+        <div class="mdui-row">
+            <span class="mdui-col-xs-8"></span>
+            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/all-notice}">查看更多</a>
+        </div>
+
+        <div class="mdui-typo-headline mdui-m-t-3">最新缴费</div>
+        <div class="mdui-typo">
+            <hr/>
+        </div>
+        <div class="mdui-m-t-1" th:each="bill:${latestBillList}">
+            <div class="mdui-row mdui-p-t-2">
+                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${bill.getTopic()}"
+                   th:href="|/bill/billDetail/${bill.getId()}|" target="_blank"></a>
+                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${bill.getRealBillTime()}"></div>
+            </div>
+        </div>
+        <div class="mdui-row">
+            <span class="mdui-col-xs-8"></span>
+            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/bill-unfinished}">查看更多</a>
+        </div>
+
     </div>
 </div>
 <script src="/js/mdui.min.js"></script>
 <script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/layui.js"></script>
 <script src="/js/MyJS.js"></script>
+<script>
+    layui.use('carousel', function(){
+        let carousel = layui.carousel;
+        carousel.render({
+            elem: '#test1'
+            ,width: '100%' //设置容器宽度
+            ,arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });
+</script>
 </body>
 </html>

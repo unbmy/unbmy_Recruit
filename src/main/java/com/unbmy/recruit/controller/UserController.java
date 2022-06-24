@@ -1,13 +1,11 @@
 package com.unbmy.recruit.controller;
 
 
-import com.unbmy.recruit.pojo.Account;
-import com.unbmy.recruit.pojo.Bill;
-import com.unbmy.recruit.pojo.Maintenance;
-import com.unbmy.recruit.pojo.Notice;
+import com.unbmy.recruit.pojo.*;
 import com.unbmy.recruit.service.IBillService;
 import com.unbmy.recruit.service.IMaintenanceService;
 import com.unbmy.recruit.service.INoticeService;
+import com.unbmy.recruit.service.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,12 +33,19 @@ public class UserController {
     private IMaintenanceService maintenanceService;
     @Resource
     private IBillService billService;
+    @Resource
+    private IUserService userService;
+
+    private int randomCode = (int) ((Math.random()*9+1)*100000);
 
     @RequestMapping("/index")
-    public ModelAndView index(){
+    public ModelAndView index(HttpSession session){
         ModelAndView modelAndView = new ModelAndView();
+        Account account = (Account) session.getAttribute("account");
         List<Notice> latestNoticeList = noticeService.getLatestNotice();
         modelAndView.addObject("latestNoticeList", latestNoticeList);
+        List<Bill> latestBillList = billService.getLatestBill(account.getId());
+        modelAndView.addObject("latestBillList", latestBillList);
         modelAndView.setViewName("/user/index");
         return modelAndView;
     }
@@ -129,12 +134,22 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/bill-cost/{id}")
+    @RequestMapping("/bill-cost/{id}")
     public ModelAndView billCost(HttpServletResponse response,
                                  @PathVariable long id) throws IOException {
         billService.billCost(id);
         response.sendRedirect("/user/bill-unfinished");
         return new ModelAndView("/user/bill-unfinished");
+    }
+
+    @RequestMapping("/modify-email")
+    public ModelAndView modifyEmailHtml(){
+        return new ModelAndView("/user/modify-email");
+    }
+
+    @RequestMapping("/modify-password")
+    public ModelAndView modifyPasswordHtml(){
+        return new ModelAndView("/user/modify-password");
     }
 
 }

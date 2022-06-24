@@ -1,6 +1,7 @@
 package com.unbmy.recruit.controller;
 
 import com.unbmy.recruit.pojo.Account;
+import com.unbmy.recruit.pojo.User;
 import com.unbmy.recruit.service.IEnterpriseService;
 import com.unbmy.recruit.service.IUserService;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -100,6 +102,35 @@ public class RegisterController {
         } else {
             return "fail";
         }
+    }
+
+    @RequestMapping("/user/modify-email/modify")
+    public ModelAndView modifyEmailAction(HttpSession session,
+                                          HttpServletResponse response,
+                                          @RequestParam String email,
+                                          @RequestParam String verifyCode) throws IOException {
+        User user = (User) session.getAttribute("account");
+        if (String.valueOf(randomCode).equals(verifyCode)){
+            user.setEmail(email);
+            userService.updateUser(user);
+        }
+        response.sendRedirect("/user/modify-email");
+        return new ModelAndView("/user/modify-email");
+    }
+
+    @RequestMapping("/user/modify-password/modify")
+    public ModelAndView modifyPasswordAction(HttpSession session,
+                                             HttpServletResponse response,
+                                             @RequestParam String password,
+                                             @RequestParam String repeatPassword,
+                                             @RequestParam String verifyCode) throws IOException {
+        User user = (User) session.getAttribute("account");
+        if (user!= null && password.equals(repeatPassword) && String.valueOf(randomCode).equals(verifyCode)){
+            user.setPassword(password);
+            userService.updateUser(user);
+        }
+        response.sendRedirect("/index");
+        return new ModelAndView("/index");
     }
 
 }

@@ -44,8 +44,9 @@
           <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
         </div>
         <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-          <li class="mdui-list-item mdui-ripple"><a href="/user/maintenance-finish">已完成报修</a></li>
-          <li class="mdui-list-item mdui-ripple"><a href="/user/maintenance-not-finish">待处理报修</a></li>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-upload}">上传报修</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-finish}">已完成报修</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-not-finish}">待处理报修</a>
         </ul>
       </li>
 
@@ -56,38 +57,38 @@
           <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
         </div>
         <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-          <li class="mdui-list-item mdui-ripple">已交账单</li>
-          <li class="mdui-list-item mdui-ripple">未交账单</li>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/user/bill-completed}">已交账单</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/user/bill-unfinished}">未交账单</a>
         </ul>
       </li>
 
-      <li class="mdui-collapse-item mdui-collapse-item-open">
+      <li class="mdui-collapse-item">
         <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
           <i class="mdui-list-item-icon mdui-icon material-icons">people</i>
           <div class="mdui-list-item-content">用户中心</div>
           <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
         </div>
         <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-          <li class="mdui-list-item mdui-ripple">修改邮箱</li>
-          <li class="mdui-list-item mdui-ripple">修改密码</li>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/user/modify-email}">修改邮箱</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/user/modify-password}">修改密码</a>
         </ul>
       </li>
 
       <li class="mdui-list-item mdui-ripple">
         <i class="mdui-list-item-icon mdui-icon material-icons">keyboard_tab</i>
-        <div class="mdui-list-item-content">登出</div>
+        <a class="mdui-list-item-content" th:href="@{/logout}">登出</a>
       </li>
 
     </ul>
   </div>
   <span class="mdui-col-xs-1"></span>
   <div class="mdui-col-xs-8 mdui-m-t-3">
-    <div class="mdui-typo-display-1">所有公告</div>
+    <div class="mdui-typo-headline">所有公告</div>
     <div class="mdui-typo">
       <hr/>
     </div>
     <div class="mdui-m-t-1" th:each="notice:${allNoticeList}">
-      <div class="mdui-row">
+      <div class="mdui-row mdui-m-t-2">
         <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${notice.getTopic()}"
            th:href="|/notice/noticeDetail/${notice.getId()}|" target="_blank"></a>
         <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>

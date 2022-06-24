@@ -33,6 +33,11 @@ public class BillServiceImpl implements IBillService {
     }
 
     @Override
+    public List<Bill> getLatestBill(Long id) {
+        return billMapper.getLatestBill(id);
+    }
+
+    @Override
     public Bill getBillById(Long id) {
         return billMapper.selectById(id);
     }
