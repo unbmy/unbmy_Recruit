@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>住户主页</title>
+    <title>未交账单</title>
     <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
     <link rel="icon" href="/images/icon/favicon.ico">
 </head>
@@ -57,12 +57,12 @@
                     <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
                 </div>
                 <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/bill-completed}">已交账单</a>
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/bill-unfinished}">未交账单</a>
+                    <li class="mdui-list-item mdui-ripple">已交账单</li>
+                    <li class="mdui-list-item mdui-ripple">未交账单</li>
                 </ul>
             </li>
 
-            <li class="mdui-collapse-item">
+            <li class="mdui-collapse-item mdui-collapse-item-open">
                 <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
                     <i class="mdui-list-item-icon mdui-icon material-icons">people</i>
                     <div class="mdui-list-item-content">用户中心</div>
@@ -83,15 +83,15 @@
     </div>
     <span class="mdui-col-xs-1"></span>
     <div class="mdui-col-xs-8 mdui-m-t-3">
-        <div class="mdui-typo-headline">最新公告</div>
+        <div class="mdui-typo-headline">未交账单</div>
         <div class="mdui-typo">
             <hr/>
         </div>
-        <div class="mdui-m-t-1" th:each="notice:${latestNoticeList}">
-            <div class="mdui-row">
-                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${notice.getTopic()}"
-                   th:href="|/notice/noticeDetail/${notice.getId()}|" target="_blank"></a>
-                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>
+        <div class="mdui-m-t-2" th:each="bill:${unfinishedBill}">
+            <div class="mdui-row mdui-m-t-2">
+                <div class="mdui-col-xs-5 mdui-typo-subheading" th:text="${bill.getTopic()}"></div>
+                <a class="mdui-col-xs-2 mdui-typo-subheading-opacity"
+                   th:href="|/bill/billDetail/${bill.getId()}|" target="_blank">查看详情</a>
             </div>
         </div>
     </div>

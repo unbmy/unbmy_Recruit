@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.unbmy.recruit.mapper.BillMapper">
+
+    <select id="getAllCompletedBill" resultType="bill" parameterType="long">
+        select id, topic, description, cost, bill_time, cost_time, status, is_deleted from tb_bill, bill_user
+        where userId = #{id} and billId = id and status = 1;
+    </select>
+
+    <select id="getAllUnfinishedBill" resultType="maintenance" parameterType="long">
+        select id, topic, description, cost, bill_time, cost_time, status, is_deleted from tb_bill, bill_user
+        where userId = #{id} and billId = id and status = 0;
+    </select>
+
+    <update id="billCost" parameterType="long">
+        update tb_bill set status = 1, cost_time = CURRENT_DATE where id = #{id} and status = 0;
+    </update>
+
+</mapper>

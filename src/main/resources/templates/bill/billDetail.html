@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>报修详情</title>
+    <title>账单详情</title>
     <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
     <link rel="icon" href="/images/icon/favicon.ico">
 </head>
 <body class="mdui-theme-primary-blue">
 <div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
-    <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">报修详情</span>
+    <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">账单详情</span>
     <div class="mdui-toolbar-spacer"></div>
     <div class="mdui-col-xs-4">
         <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
@@ -32,43 +32,52 @@
     <table class="mdui-table mdui-table-hoverable">
         <tbody>
         <tr>
-            <td>报修编号</td>
-            <td th:text="${maintenance.getId()}"></td>
+            <td>账单编号</td>
+            <td th:text="${bill.getId()}"></td>
         </tr>
         <tr>
-            <td>报修标题</td>
-            <td th:text="${maintenance.getTopic()}"></td>
+            <td>账单标题</td>
+            <td th:text="${bill.getTopic()}"></td>
         </tr>
         <tr>
-            <td>报修地点</td>
-            <td th:text="${maintenance.getPlace()}"></td>
+            <td>附加描述</td>
+            <td th:text="${bill.getDescription()}"></td>
         </tr>
         <tr>
-            <td>详细描述</td>
-            <td th:text="${maintenance.getDescription()}"></td>
+            <td>应缴金额</td>
+            <td th:text="|${bill.getCost()}元|"></td>
+        </tr>
+        <tr>
+            <td>账单时间</td>
+            <td th:text="${bill.getRealBillTime()}"></td>
         </tr>
 
-        <th:block th:if="${maintenance.getPhoto()==null}">
+        <th:block th:if="${bill.getCostTime()==null}">
             <tr>
-                <td>照片描述</td>
-                <td>暂无</td>
+                <td>缴费时间</td>
+                <td>你还没有缴费，请尽快缴费！</td>
             </tr>
         </th:block>
 
-        <th:block th:if="${maintenance.getPhoto()!=null}">
+        <th:block th:if="${bill.getCostTime()!=null}">
             <tr>
-                <td>照片描述</td>
-                <td><img th:src="${maintenance.getRealPhoto()}" width="250px" height="250px"></td>
+                <td>缴费时间</td>
+                <td th:text="${bill.getRealCostTime()}"></td>
             </tr>
         </th:block>
-
-        <tr>
-            <td>报修时间</td>
-            <td th:text="${maintenance.getRealTime()}"></td>
-        </tr>
         </tbody>
     </table>
 </div>
+
+<div class="mdui-text-center mdui-m-t-3">
+    <th:block th:if="${bill.getStatus() == 0}">
+        <form th:action="|/user/bill-cost/${bill.getId()}|">
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-red mdui-text-color-white"
+                    type="submit">缴费</button>
+        </form>
+    </th:block>
+</div>
+
 
 <script src="/js/mdui.min.js"></script>
 <script src="/js/jquery-3.6.0.min.js"></script>

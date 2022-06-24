@@ -2,17 +2,21 @@ package com.unbmy.recruit.controller;
 
 
 import com.unbmy.recruit.pojo.Account;
+import com.unbmy.recruit.pojo.Bill;
 import com.unbmy.recruit.pojo.Maintenance;
 import com.unbmy.recruit.pojo.Notice;
+import com.unbmy.recruit.service.IBillService;
 import com.unbmy.recruit.service.IMaintenanceService;
 import com.unbmy.recruit.service.INoticeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +33,8 @@ public class UserController {
     private INoticeService noticeService;
     @Resource
     private IMaintenanceService maintenanceService;
+    @Resource
+    private IBillService billService;
 
     @RequestMapping("/index")
     public ModelAndView index(){
@@ -101,6 +107,34 @@ public class UserController {
         modelAndView.addObject("unhandledMaintenance", unhandledMaintenance);
         modelAndView.setViewName("/user/maintenance-not-finish");
         return modelAndView;
+    }
+
+    @RequestMapping("/bill-completed")
+    public ModelAndView billCompleted(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+        Account account = (Account) session.getAttribute("account");
+        List<Bill> completedBill = billService.getAllCompletedBill(account.getId());
+        modelAndView.addObject("completedBill", completedBill);
+        modelAndView.setViewName("/user/bill-completed");
+        return modelAndView;
+    }
+
+    @RequestMapping("/bill-unfinished")
+    public ModelAndView billUnfinished(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+        Account account = (Account) session.getAttribute("account");
+        List<Bill> unfinishedBill = billService.getAllUnfinishedBill(account.getId());
+        modelAndView.addObject("unfinishedBill", unfinishedBill);
+        modelAndView.setViewName("/user/bill-unfinished");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/bill-cost/{id}")
+    public ModelAndView billCost(HttpServletResponse response,
+                                 @PathVariable long id) throws IOException {
+        billService.billCost(id);
+        response.sendRedirect("/user/bill-unfinished");
+        return new ModelAndView("/user/bill-unfinished");
     }
 
 }
