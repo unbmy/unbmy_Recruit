@@ -92,7 +92,7 @@
     <span class="mdui-col-xs-1"></span>
     <div class="mdui-col-xs-8 mdui-m-t-3">
         <div>
-            <form th:action="@{/enterprise/add-notice/insert}" method="post">
+            <form th:action="@{/notice/insert}" method="post">
                 <div class="mdui-textfield mdui-textfield-floating-label"
                      style="width: 60%">
                     <label class="mdui-textfield-label">公告标题</label>
@@ -122,15 +122,5 @@
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/layui.js"></script>
 <script src="/js/MyJS.js"></script>
-<script>
-    layui.use('carousel', function(){
-        let carousel = layui.carousel;
-        carousel.render({
-            elem: '#test1'
-            ,width: '100%' //设置容器宽度
-            ,arrow: 'always' //始终显示箭头
-        });
-    });
-</script>
 </body>
 </html>

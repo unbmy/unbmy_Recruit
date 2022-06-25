@@ -4,6 +4,7 @@ import com.unbmy.recruit.pojo.Account;
 import com.unbmy.recruit.pojo.Bill;
 import com.unbmy.recruit.pojo.Maintenance;
 import com.unbmy.recruit.pojo.Notice;
+import com.unbmy.recruit.service.IBillService;
 import com.unbmy.recruit.service.IMaintenanceService;
 import com.unbmy.recruit.service.INoticeService;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,8 @@ public class EnterpriseController {
     private INoticeService noticeService;
     @Resource
     private IMaintenanceService maintenanceService;
+    @Resource
+    private IBillService billService;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpSession session){
@@ -49,14 +52,6 @@ public class EnterpriseController {
         return new ModelAndView("/enterprise/add-notice");
     }
 
-    @RequestMapping("/add-notice/insert")
-    public ModelAndView addNoticeAction(@RequestParam String topic,
-                                        @RequestParam String content){
-        Date date = new Date();
-        noticeService.addNotice(topic, content, date);
-        return new ModelAndView("redirect:/enterprise/add-notice");
-    }
-
     @RequestMapping("/handledMaintenance")
     public ModelAndView handledMaintenance(){
         ModelAndView modelAndView = new ModelAndView();
@@ -75,5 +70,27 @@ public class EnterpriseController {
         return modelAndView;
     }
 
+    @RequestMapping("/bill-paid")
+    public ModelAndView billPaid(){
+        ModelAndView modelAndView = new ModelAndView();
+        List<Bill> allCompletedBill = billService.getAllCompletedBill();
+        modelAndView.addObject("allCompletedBill", allCompletedBill);
+        modelAndView.setViewName("/enterprise/bill-paid");
+        return modelAndView;
+    }
+
+    @RequestMapping("/bill-unpaid")
+    public ModelAndView billUnpaid(){
+        ModelAndView modelAndView = new ModelAndView();
+        List<Bill> allUnfinishedBill = billService.getAllUnfinishedBill();
+        modelAndView.addObject("allUnfinishedBill", allUnfinishedBill);
+        modelAndView.setViewName("/enterprise/bill-unpaid");
+        return modelAndView;
+    }
+
+    @RequestMapping("/bill-add")
+    public ModelAndView billAdd(){
+        return new ModelAndView("/enterprise/add-bill");
+    }
 
 }

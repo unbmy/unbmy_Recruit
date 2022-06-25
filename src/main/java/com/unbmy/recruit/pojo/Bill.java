@@ -31,6 +31,13 @@ public class Bill {
         this.billTime = billTime;
     }
 
+    public Bill(Long id, String topic, String description, Double cost) {
+        this.id = id;
+        this.topic = topic;
+        this.description = description;
+        this.cost = cost;
+    }
+
     public String getRealBillTime(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(billTime);

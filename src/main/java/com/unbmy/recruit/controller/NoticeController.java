@@ -39,6 +39,14 @@ public class NoticeController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public ModelAndView addNoticeAction(@RequestParam String topic,
+                                        @RequestParam String content){
+        Date date = new Date();
+        noticeService.addNotice(topic, content, date);
+        return new ModelAndView("redirect:/enterprise/add-notice");
+    }
+
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public ModelAndView update(@PathVariable Long id,
                                @RequestParam String topic,

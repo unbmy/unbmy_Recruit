@@ -22,4 +22,15 @@
         update tb_bill set status = 1, cost_time = CURRENT_DATE where id = #{id} and status = 0;
     </update>
 
+    <insert id="addBillToAll" parameterType="java.util.List">
+        insert into bill_user values
+        <foreach collection="userList" item="user" separator=",">
+            (#{user.id}, #{billId})
+        </foreach>
+    </insert>
+
+    <insert id="addBillToUser" parameterType="long">
+        insert into bill_user values (#{userId}, #{billId})
+    </insert>
+
 </mapper>

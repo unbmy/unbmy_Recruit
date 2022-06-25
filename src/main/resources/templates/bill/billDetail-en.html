@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>报修详情</title>
+  <title>账单详情</title>
   <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
   <link rel="icon" href="/images/icon/favicon.ico">
 </head>
 <body class="mdui-theme-primary-blue">
 <div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
-  <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">报修详情</span>
+  <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">账单详情</span>
   <div class="mdui-toolbar-spacer"></div>
   <div class="mdui-col-xs-4">
     <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
@@ -32,65 +32,64 @@
   <table class="mdui-table mdui-table-hoverable">
     <tbody>
     <tr>
-      <td>报修编号</td>
-      <td th:text="${maintenance.getId()}"></td>
+      <td>账单编号</td>
+      <td th:text="${bill.getId()}"></td>
     </tr>
     <tr>
-      <td>报修标题</td>
-      <td th:text="${maintenance.getTopic()}"></td>
+      <td>账单标题</td>
+      <td th:text="${bill.getTopic()}"></td>
     </tr>
     <tr>
-      <td>报修地点</td>
-      <td th:text="${maintenance.getPlace()}"></td>
+      <td>附加描述</td>
+      <td th:text="${bill.getDescription()}"></td>
     </tr>
     <tr>
-      <td>详细描述</td>
-      <td th:text="${maintenance.getDescription()}"></td>
+      <td>应缴金额</td>
+      <td th:text="|${bill.getCost()}元|"></td>
+    </tr>
+    <tr>
+      <td>账单时间</td>
+      <td th:text="${bill.getRealBillTime()}"></td>
     </tr>
 
-    <th:block th:if="${maintenance.getPhoto()==null}">
+    <th:block th:if="${bill.getStatus()==0}">
       <tr>
-        <td>照片描述</td>
-        <td>暂无</td>
+        <td>缴费时间</td>
+        <td>住户尚未缴费！</td>
       </tr>
     </th:block>
 
-    <th:block th:if="${maintenance.getPhoto()!=null}">
+    <th:block th:if="${bill.getStatus()==1}">
       <tr>
-        <td>照片描述</td>
-        <td><img th:src="${maintenance.getRealPhoto()}" width="250px" height="250px"></td>
+        <td>缴费时间</td>
+        <td th:text="${bill.getRealCostTime()}"></td>
       </tr>
     </th:block>
-
-    <tr>
-      <td>报修时间</td>
-      <td th:text="${maintenance.getRealTime()}"></td>
-    </tr>
     </tbody>
   </table>
 </div>
 
 <div class="mdui-m-t-3">
-  <th:block th:if="${maintenance.getStatus() == 0}">
+  <th:block th:if="${bill.getStatus() == 0}">
     <span class="mdui-col-xs-4"></span>
   </th:block>
-  <th:block th:if="${maintenance.getStatus() == 1}">
+  <th:block th:if="${bill.getStatus() == 1}">
     <span class="mdui-col-xs-5"></span>
   </th:block>
 
-  <th:block th:if="${maintenance.getStatus() == 0}">
+  <th:block th:if="${bill.getStatus() == 0}">
     <button class="mdui-btn mdui-color-green mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-2"
-            mdui-dialog="{target: '#updateMaintenanceStatus'}">已处理</button>
+            mdui-dialog="{target: '#updateBillStatus'}">已缴费</button>
   </th:block>
   <button class="mdui-btn mdui-color-blue mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-1"
-          mdui-dialog="{target: '#updateMaintenance'}">修改</button>
+          mdui-dialog="{target: '#updateBill'}">修改</button>
   <button class="mdui-btn mdui-color-red mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-1"
-          mdui-dialog="{target: '#deleteMaintenance'}">删除</button>
+          mdui-dialog="{target: '#deleteBill'}">删除</button>
 </div>
 
-<div class="mdui-dialog" id="updateMaintenanceStatus">
-  <form th:action="|/maintenance/update/${maintenance.getId()}|" method="get">
-    <div class="mdui-dialog-content">该报修确认成功处理了吗？</div>
+<div class="mdui-dialog" id="updateBillStatus">
+  <form th:action="|/bill/update/${bill.getId()}|" method="get">
+    <div class="mdui-dialog-content">该账单确认成功缴费了吗？</div>
     <div class="mdui-dialog-actions">
       <button class="mdui-btn mdui-ripple" mdui-dialog-close>否</button>
       <button class="mdui-btn mdui-ripple" type="submit">是</button>
@@ -98,25 +97,24 @@
   </form>
 </div>
 
-<div class="mdui-dialog" id="updateMaintenance">
-  <form th:action="|/maintenance/update/${maintenance.getId()}|" method="post">
+<div class="mdui-dialog" id="updateBill">
+  <form th:action="|/bill/update/${bill.getId()}|" method="post">
     <div class="mdui-dialog-content">
       <div class="mdui-textfield">
         <label class="mdui-textfield-label">标题</label>
         <input class="mdui-textfield-input" type="text" name="topic"
-               th:value="${maintenance.getTopic()}" required/>
+               th:value="${bill.getTopic()}" required/>
         <div class="mdui-textfield-error">标题不能为空</div>
       </div>
       <div class="mdui-textfield">
-        <label class="mdui-textfield-label">地点</label>
-        <input class="mdui-textfield-input" type="text" name="place"
-               th:value="${maintenance.getPlace()}" required/>
-        <div class="mdui-textfield-error">内容不能为空</div>
+        <label class="mdui-textfield-label">附加描述</label>
+        <input class="mdui-textfield-input" type="text" name="description"
+               th:value="${bill.getDescription()}"/>
       </div>
       <div class="mdui-textfield">
-        <label class="mdui-textfield-label">描述</label>
-        <input class="mdui-textfield-input" type="text" name="description"
-               th:value="${maintenance.getDescription()}" required/>
+        <label class="mdui-textfield-label">金额</label>
+        <input class="mdui-textfield-input" type="text" name="cost"
+               th:value="${bill.getCost()}" required/>
         <div class="mdui-textfield-error">描述不能为空</div>
       </div>
     </div>
@@ -127,9 +125,9 @@
   </form>
 </div>
 
-<div class="mdui-dialog" id="deleteMaintenance">
-  <form th:action="|/maintenance/delete/${maintenance.getId()}|" method="get">
-    <div class="mdui-dialog-content">确定删除该报修记录吗？</div>
+<div class="mdui-dialog" id="deleteBill">
+  <form th:action="|/bill/delete/${bill.getId()}|" method="get">
+    <div class="mdui-dialog-content">确定删除该缴费记录吗？</div>
     <div class="mdui-dialog-actions">
       <button class="mdui-btn mdui-ripple" mdui-dialog-close>否</button>
       <button class="mdui-btn mdui-ripple" type="submit">是</button>

@@ -118,7 +118,7 @@ public class UserController {
     public ModelAndView billCompleted(HttpSession session){
         ModelAndView modelAndView = new ModelAndView();
         Account account = (Account) session.getAttribute("account");
-        List<Bill> completedBill = billService.getAllCompletedBill(account.getId());
+        List<Bill> completedBill = billService.getCompletedBill(account.getId());
         modelAndView.addObject("completedBill", completedBill);
         modelAndView.setViewName("/user/bill-completed");
         return modelAndView;
@@ -128,7 +128,7 @@ public class UserController {
     public ModelAndView billUnfinished(HttpSession session){
         ModelAndView modelAndView = new ModelAndView();
         Account account = (Account) session.getAttribute("account");
-        List<Bill> unfinishedBill = billService.getAllUnfinishedBill(account.getId());
+        List<Bill> unfinishedBill = billService.getUnfinishedBill(account.getId());
         modelAndView.addObject("unfinishedBill", unfinishedBill);
         modelAndView.setViewName("/user/bill-unfinished");
         return modelAndView;

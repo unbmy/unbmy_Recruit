@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>所有公告</title>
+  <title>添加账单</title>
   <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
   <link rel="stylesheet" href="/css/layui.css" media="all">
   <link rel="icon" href="/images/icon/favicon.ico">
 </head>
-<body class="mdui-theme-primary-blue">
+<body class="mdui-theme-primary-blue mdui-theme-accent-blue">
 <div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
   <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">“春天启动”小区物业管理中心</span>
   <div class="mdui-toolbar-spacer"></div>
@@ -91,16 +91,59 @@
   </div>
   <span class="mdui-col-xs-1"></span>
   <div class="mdui-col-xs-8 mdui-m-t-3">
-    <div class="mdui-typo-headline">所有公告</div>
-    <div class="mdui-typo">
-      <hr/>
-    </div>
-    <div class="mdui-m-t-1" th:each="notice:${allNoticeList}">
-      <div class="mdui-row mdui-m-t-2">
-        <a class="mdui-col-xs-5 mdui-typo-subheading mdui-p-t-1" th:text="${notice.getTopic()}"
-           th:href="|/notice/noticeDetail-en/${notice.getId()}|" target="_blank"></a>
-        <div class="mdui-col-xs-2 mdui-typo-subheading-opacity mdui-p-t-1" th:text="${notice.getRealTime()}"></div>
-      </div>
+    <div>
+      <form th:action="@{/bill/insert}" method="post">
+        <div class="mdui-textfield mdui-textfield-floating-label"
+             style="width: 60%">
+          <label class="mdui-textfield-label">账单标题</label>
+          <input class="mdui-textfield-input" type="text" name="topic" required/>
+          <div class="mdui-textfield-error">标题不能为空</div>
+        </div>
+
+        <div class="mdui-textfield mdui-textfield-floating-label"
+             style="width: 60%">
+          <label class="mdui-textfield-label">账单描述</label>
+          <textarea class="mdui-textfield-input" type="text" name="description"></textarea>
+        </div>
+
+        <div class="mdui-textfield mdui-textfield-floating-label"
+             style="width: 60%">
+          <label class="mdui-textfield-label">缴费金额</label>
+          <input class="mdui-textfield-input" type="text" name="cost" required/>
+          <div class="mdui-textfield-error">金额不能为空</div>
+        </div>
+
+        <div class="mdui-m-t-2">
+          <label class="mdui-radio mdui-m-l-3">
+            <input type="radio" name="type" value="0" checked onclick="disableUserId()"/>
+            <i class="mdui-radio-icon"></i>
+            发送给所有住户
+          </label>
+        </div>
+
+        <div class="mdui-m-t-2">
+          <label class="mdui-radio mdui-m-l-3">
+            <input type="radio" name="type" value="1" onclick="enableUserId()"/>
+            <i class="mdui-radio-icon"></i>
+            发送给指定用户
+          </label>
+        </div>
+
+        <div class="mdui-textfield mdui-textfield-floating-label"
+             style="width: 60%">
+          <label class="mdui-textfield-label">用户ID</label>
+          <input class="mdui-textfield-input" type="text" name="userId" id="userId"
+                 disabled/>
+        </div>
+
+        <div class="mdui-row mdui-m-t-3">
+          <div class="mdui-col-xs-3"></div>
+          <div class="mdui-col-xs-2">
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"
+                    type="submit">提交</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -108,5 +151,14 @@
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/layui.js"></script>
 <script src="/js/MyJS.js"></script>
+<script>
+  function enableUserId(){
+    $("#userId").attr("disabled", false);
+  };
+
+  function disableUserId(){
+    $("#userId").attr("disabled", true);
+  };
+</script>
 </body>
 </html>
