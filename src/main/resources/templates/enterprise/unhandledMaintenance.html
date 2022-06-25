@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>物业主页</title>
+    <title>待处理报修</title>
     <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
     <link rel="stylesheet" href="/css/layui.css" media="all">
     <link rel="icon" href="/images/icon/favicon.ico">
@@ -52,8 +52,8 @@
                     <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
                 </div>
                 <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/unhandledMaintenance}">未处理报修</a>
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/handledMaintenance}">已处理报修</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/maintenance-not-finish}">未处理报修</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/maintenance-finish}">已处理报修</a>
                 </ul>
             </li>
 
@@ -91,48 +91,17 @@
     </div>
     <span class="mdui-col-xs-1"></span>
     <div class="mdui-col-xs-8 mdui-m-t-3">
-
-        <div class="layui-carousel" id="test1">
-            <div carousel-item>
-                <img src="/images/carousel/1.png">
-                <img src="/images/carousel/2.png">
-                <img src="/images/carousel/3.png">
+        <div class="mdui-typo-headline">待处理报修</div>
+        <div class="mdui-typo">
+            <hr/>
+        </div>
+        <div class="mdui-m-t-1" th:each="maintenance:${allUnhandledMaintenance}">
+            <div class="mdui-row mdui-m-t-2">
+                <div class="mdui-col-xs-5 mdui-typo-subheading" th:text="${maintenance.getTopic()}"></div>
+                <a class="mdui-col-xs-3 mdui-typo-subheading-opacity"
+                   th:href="|/maintenance/maintenanceDetail-en/${maintenance.getId()}|" target="_blank">查看详情</a>
             </div>
         </div>
-
-        <!-- todo -->
-<!--        <div class="mdui-typo-headline mdui-m-t-3">最新公告</div>-->
-<!--        <div class="mdui-typo">-->
-<!--            <hr/>-->
-<!--        </div>-->
-<!--        <div class="mdui-m-t-1" th:each="notice:${latestNoticeList}">-->
-<!--            <div class="mdui-row mdui-p-t-2">-->
-<!--                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${notice.getTopic()}"-->
-<!--                   th:href="|/notice/noticeDetail/${notice.getId()}|" target="_blank"></a>-->
-<!--                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="mdui-row">-->
-<!--            <span class="mdui-col-xs-8"></span>-->
-<!--            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/all-notice}">查看更多</a>-->
-<!--        </div>-->
-
-<!--        <div class="mdui-typo-headline mdui-m-t-3">最新缴费</div>-->
-<!--        <div class="mdui-typo">-->
-<!--            <hr/>-->
-<!--        </div>-->
-<!--        <div class="mdui-m-t-1" th:each="bill:${latestBillList}">-->
-<!--            <div class="mdui-row mdui-p-t-2">-->
-<!--                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${bill.getTopic()}"-->
-<!--                   th:href="|/bill/billDetail/${bill.getId()}|" target="_blank"></a>-->
-<!--                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${bill.getRealBillTime()}"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="mdui-row">-->
-<!--            <span class="mdui-col-xs-8"></span>-->
-<!--            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/bill-unfinished}">查看更多</a>-->
-<!--        </div>-->
-
     </div>
 </div>
 <script src="/js/mdui.min.js"></script>

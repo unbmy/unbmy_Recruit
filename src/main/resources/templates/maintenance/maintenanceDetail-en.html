@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>报修详情</title>
+  <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
+  <link rel="icon" href="/images/icon/favicon.ico">
+</head>
+<body class="mdui-theme-primary-blue">
+<div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
+  <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">报修详情</span>
+  <div class="mdui-toolbar-spacer"></div>
+  <div class="mdui-col-xs-4">
+    <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
+      <button class="mdui-textfield-icon mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">search</i>
+      </button>
+      <input class="mdui-textfield-input" type="text" placeholder="请输入搜索内容"/>
+      <button class="mdui-textfield-close mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">close</i>
+      </button>
+    </div>
+  </div>
+  <div class="mdui-col-xs-1">
+    <a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon">
+      <i class="mdui-icon material-icons">refresh</i>
+    </a>
+  </div>
+</div>
+
+<div class="mdui-table-fluid">
+  <table class="mdui-table mdui-table-hoverable">
+    <tbody>
+    <tr>
+      <td>报修编号</td>
+      <td th:text="${maintenance.getId()}"></td>
+    </tr>
+    <tr>
+      <td>报修标题</td>
+      <td th:text="${maintenance.getTopic()}"></td>
+    </tr>
+    <tr>
+      <td>报修地点</td>
+      <td th:text="${maintenance.getPlace()}"></td>
+    </tr>
+    <tr>
+      <td>详细描述</td>
+      <td th:text="${maintenance.getDescription()}"></td>
+    </tr>
+
+    <th:block th:if="${maintenance.getPhoto()==null}">
+      <tr>
+        <td>照片描述</td>
+        <td>暂无</td>
+      </tr>
+    </th:block>
+
+    <th:block th:if="${maintenance.getPhoto()!=null}">
+      <tr>
+        <td>照片描述</td>
+        <td><img th:src="${maintenance.getRealPhoto()}" width="250px" height="250px"></td>
+      </tr>
+    </th:block>
+
+    <tr>
+      <td>报修时间</td>
+      <td th:text="${maintenance.getRealTime()}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mdui-m-t-3">
+  <th:block th:if="${maintenance.getStatus() == 0}">
+    <span class="mdui-col-xs-4"></span>
+  </th:block>
+  <th:block th:if="${maintenance.getStatus() == 1}">
+    <span class="mdui-col-xs-5"></span>
+  </th:block>
+
+  <th:block th:if="${maintenance.getStatus() == 0}">
+    <button class="mdui-btn mdui-color-green mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-2"
+            mdui-dialog="{target: '#updateMaintenanceStatus'}">已处理</button>
+  </th:block>
+  <button class="mdui-btn mdui-color-blue mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-1"
+          mdui-dialog="{target: '#updateMaintenance'}">修改</button>
+  <button class="mdui-btn mdui-color-red mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-1"
+          mdui-dialog="{target: '#deleteMaintenance'}">删除</button>
+</div>
+
+<div class="mdui-dialog" id="updateMaintenanceStatus">
+  <form th:action="|/maintenance/update/${maintenance.getId()}|" method="get">
+    <div class="mdui-dialog-content">该报修确认成功处理了吗？</div>
+    <div class="mdui-dialog-actions">
+      <button class="mdui-btn mdui-ripple" mdui-dialog-close>否</button>
+      <button class="mdui-btn mdui-ripple" type="submit">是</button>
+    </div>
+  </form>
+</div>
+
+<div class="mdui-dialog" id="updateMaintenance">
+  <form th:action="|/maintenance/update/${maintenance.getId()}|" method="post">
+    <div class="mdui-dialog-content">
+      <div class="mdui-textfield">
+        <label class="mdui-textfield-label">标题</label>
+        <input class="mdui-textfield-input" type="text" name="topic"
+               th:value="${maintenance.getTopic()}" required/>
+        <div class="mdui-textfield-error">标题不能为空</div>
+      </div>
+      <div class="mdui-textfield">
+        <label class="mdui-textfield-label">地点</label>
+        <input class="mdui-textfield-input" type="text" name="place"
+               th:value="${maintenance.getPlace()}" required/>
+        <div class="mdui-textfield-error">内容不能为空</div>
+      </div>
+      <div class="mdui-textfield">
+        <label class="mdui-textfield-label">描述</label>
+        <input class="mdui-textfield-input" type="text" name="description"
+               th:value="${maintenance.getDescription()}" required/>
+        <div class="mdui-textfield-error">描述不能为空</div>
+      </div>
+    </div>
+    <div class="mdui-dialog-actions">
+      <button class="mdui-btn mdui-ripple" mdui-dialog-close>放弃</button>
+      <button class="mdui-btn mdui-ripple" type="submit">确认</button>
+    </div>
+  </form>
+</div>
+
+<div class="mdui-dialog" id="deleteMaintenance">
+  <form th:action="|/maintenance/delete/${maintenance.getId()}|" method="get">
+    <div class="mdui-dialog-content">确定删除该公告吗？</div>
+    <div class="mdui-dialog-actions">
+      <button class="mdui-btn mdui-ripple" mdui-dialog-close>否</button>
+      <button class="mdui-btn mdui-ripple" type="submit">是</button>
+    </div>
+  </form>
+</div>
+
+<script src="/js/mdui.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/MyJS.js"></script>
+</body>
+</html>

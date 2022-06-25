@@ -32,6 +32,13 @@ public class Maintenance {
         time = new Date();
     }
 
+    public Maintenance(Long id, String topic, String place, String description) {
+        this.id = id;
+        this.topic = topic;
+        this.place = place;
+        this.description = description;
+    }
+
     public String getRealTime(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(time);

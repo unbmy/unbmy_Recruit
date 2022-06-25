@@ -1,5 +1,6 @@
 package com.unbmy.recruit.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.unbmy.recruit.mapper.MaintenanceMapper;
 import com.unbmy.recruit.pojo.Maintenance;
 import com.unbmy.recruit.service.IMaintenanceService;
@@ -15,6 +16,20 @@ import java.util.List;
 public class MaintenanceServiceImpl implements IMaintenanceService {
     @Resource
     private MaintenanceMapper maintenanceMapper;
+
+    @Override
+    public List<Maintenance> getAllCompleteMaintenance() {
+        QueryWrapper<Maintenance> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status", 1);
+        return maintenanceMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<Maintenance> getAllUnhandledMaintenance() {
+        QueryWrapper<Maintenance> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status", 0);
+        return maintenanceMapper.selectList(queryWrapper);
+    }
 
     @Override
     public List<Maintenance> getUnhandledMaintenance(Long id) {
@@ -34,5 +49,15 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
     @Override
     public int addMaintenance(String topic, String place, String description, String photo) {
         return maintenanceMapper.insert(new Maintenance(topic, place, description, photo));
+    }
+
+    @Override
+    public int updateMaintenance(Maintenance maintenance) {
+        return maintenanceMapper.updateById(maintenance);
+    }
+
+    @Override
+    public int deleteMaintenance(Long id) {
+        return maintenanceMapper.deleteById(id);
     }
 }

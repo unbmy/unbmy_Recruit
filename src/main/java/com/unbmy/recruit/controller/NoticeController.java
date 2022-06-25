@@ -46,7 +46,7 @@ public class NoticeController {
         Date date = new Date();
         Notice notice = new Notice(id, topic, content, date);
         noticeService.updateNotice(notice);
-        return noticeDetailEn(id);
+        return new ModelAndView("redirect:/notice/noticeDetail-en/{id}");
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
