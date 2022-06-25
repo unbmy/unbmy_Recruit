@@ -1,6 +1,7 @@
 package com.unbmy.recruit.controller;
 
 import com.unbmy.recruit.pojo.Account;
+import com.unbmy.recruit.pojo.Enterprise;
 import com.unbmy.recruit.pojo.User;
 import com.unbmy.recruit.service.IEnterpriseService;
 import com.unbmy.recruit.service.IUserService;
@@ -102,6 +103,31 @@ public class RegisterController {
         } else {
             return "fail";
         }
+    }
+
+    @RequestMapping("/enterprise/modify-phone/modify")
+    public ModelAndView modifyPhoneAction(HttpSession session,
+                                          @RequestParam String phone,
+                                          @RequestParam String verifyCode) {
+        Enterprise enterprise = (Enterprise) session.getAttribute("account");
+        if (String.valueOf(randomCode).equals(verifyCode)){
+            enterprise.setPhone(phone);
+            enterpriseService.updateEnterprise(enterprise);
+        }
+        return new ModelAndView("redirect:/enterprise/modify-phone");
+    }
+
+    @RequestMapping("/enterprise/modify-password/modify")
+    public ModelAndView modifyPasswordActionEn(HttpSession session,
+                                             @RequestParam String password,
+                                             @RequestParam String repeatPassword,
+                                             @RequestParam String verifyCode) {
+        Enterprise enterprise = (Enterprise) session.getAttribute("account");
+        if (enterprise!= null && password.equals(repeatPassword) && String.valueOf(randomCode).equals(verifyCode)){
+            enterprise.setPassword(password);
+            enterpriseService.updateEnterprise(enterprise);
+        }
+        return new ModelAndView("redirect:/index");
     }
 
     @RequestMapping("/user/modify-email/modify")

@@ -13,5 +13,6 @@ public interface IEnterpriseService {
     Enterprise getEnterprise(String username, String password);
     int addEnterprise(String username, String password, String enterpriseName,
                       String address, String phone);
+    int updateEnterprise(Enterprise enterprise);
 
 }

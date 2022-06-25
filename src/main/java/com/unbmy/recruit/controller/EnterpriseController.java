@@ -9,12 +9,10 @@ import com.unbmy.recruit.service.IMaintenanceService;
 import com.unbmy.recruit.service.INoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -91,6 +89,16 @@ public class EnterpriseController {
     @RequestMapping("/bill-add")
     public ModelAndView billAdd(){
         return new ModelAndView("/enterprise/add-bill");
+    }
+
+    @RequestMapping("/modify-phone")
+    public ModelAndView modifyPhoneHtml(){
+        return new ModelAndView("/enterprise/modify-phone");
+    }
+
+    @RequestMapping("/modify-password")
+    public ModelAndView modifyPasswordHtml(){
+        return new ModelAndView("/enterprise/modify-password");
     }
 
 }

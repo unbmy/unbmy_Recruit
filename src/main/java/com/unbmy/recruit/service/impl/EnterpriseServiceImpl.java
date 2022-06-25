@@ -35,4 +35,9 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
     public int addEnterprise(String username, String password, String enterpriseName, String address, String phone) {
         return enterpriseMapper.insert(new Enterprise(username, password, enterpriseName, address, phone));
     }
+
+    @Override
+    public int updateEnterprise(Enterprise enterprise) {
+        return enterpriseMapper.updateById(enterprise);
+    }
 }

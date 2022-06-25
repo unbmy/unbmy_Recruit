@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>修改邮箱</title>
+    <title>修改手机号</title>
     <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
     <link rel="icon" href="/images/icon/favicon.ico">
 </head>
 <body class="mdui-theme-primary-blue mdui-theme-accent-blue">
 <div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
-    <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">“春天启动”小区住户个人中心</span>
+    <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">“春天启动”小区物业管理中心</span>
     <div class="mdui-toolbar-spacer"></div>
     <div class=" mdui-col-xs-4">
         <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
@@ -84,12 +84,12 @@
     <span class="mdui-col-xs-1"></span>
     <div class="mdui-col-xs-8 mdui-m-t-3">
         <div>
-            <form th:action="@{/user/modify-email/modify}" method="post">
+            <form th:action="@{/enterprise/modify-phone/modify}" method="post">
                 <div class="mdui-textfield mdui-textfield-floating-label"
-                style="width: 35%">
-                    <label class="mdui-textfield-label">新邮箱地址</label>
-                    <input class="mdui-textfield-input" type="text" name="email" required/>
-                    <div class="mdui-textfield-error">邮箱不能为空</div>
+                     style="width: 35%">
+                    <label class="mdui-textfield-label">新手机号</label>
+                    <input class="mdui-textfield-input" type="text" name="phone" required/>
+                    <div class="mdui-textfield-error">手机号不能为空</div>
                 </div>
 
                 <div class="mdui-row">
