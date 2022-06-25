@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>物业主页</title>
+  <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
+  <link rel="stylesheet" href="/css/layui.css" media="all">
+  <link rel="icon" href="/images/icon/favicon.ico">
+</head>
+<body class="mdui-theme-primary-blue">
+<div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
+  <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">“春天启动”小区物业管理中心</span>
+  <div class="mdui-toolbar-spacer"></div>
+  <div class=" mdui-col-xs-4">
+    <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
+      <button class="mdui-textfield-icon mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">search</i>
+      </button>
+      <input class="mdui-textfield-input" type="text" placeholder="请输入搜索内容"/>
+      <button class="mdui-textfield-close mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">close</i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="mdui-row">
+  <div class="mdui-col-xs-2">
+    <ul class="mdui-list" mdui-collapse="{accordion: true}">
+
+      <li class="mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+        <a class="mdui-list-item-content" th:href="@{/enterprise/index}">首页</a>
+      </li>
+
+      <li class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+          <i class="mdui-list-item-icon mdui-icon material-icons">announcement</i>
+          <div class="mdui-list-item-content">公告模块</div>
+          <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/all-notice}">所有公告</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/add-notice}">新增公告</a>
+        </ul>
+      </li>
+
+      <li class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+          <i class="mdui-list-item-icon mdui-icon material-icons">build</i>
+          <div class="mdui-list-item-content">报修模块</div>
+          <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/maintenance-not-finish}">未处理报修</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/maintenance-finish}">已处理报修</a>
+        </ul>
+      </li>
+
+      <li class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+          <i class="mdui-list-item-icon mdui-icon material-icons">book</i>
+          <div class="mdui-list-item-content">缴费模块</div>
+          <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/bill-unfinished}">未交账单</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/bill-completed}">已交账单</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/bill-update}">新增账单</a>
+        </ul>
+      </li>
+
+      <li class="mdui-collapse-item">
+        <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+          <i class="mdui-list-item-icon mdui-icon material-icons">people</i>
+          <div class="mdui-list-item-content">用户中心</div>
+          <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+        </div>
+        <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/modify-phone}">修改手机号</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/modify-password}">修改密码</a>
+        </ul>
+      </li>
+
+      <li class="mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons">keyboard_tab</i>
+        <a class="mdui-list-item-content" th:href="@{/logout}">登出</a>
+      </li>
+
+    </ul>
+  </div>
+  <span class="mdui-col-xs-1"></span>
+  <div class="mdui-col-xs-8 mdui-m-t-3">
+    <div class="mdui-typo-headline">所有公告</div>
+    <div class="mdui-typo">
+      <hr/>
+    </div>
+    <div class="mdui-m-t-1" th:each="notice:${allNoticeList}">
+      <div class="mdui-row mdui-m-t-2">
+        <a class="mdui-col-xs-5 mdui-typo-subheading mdui-p-t-1" th:text="${notice.getTopic()}"
+           th:href="|/notice/noticeDetail-en/${notice.getId()}|" target="_blank"></a>
+        <div class="mdui-col-xs-2 mdui-typo-subheading-opacity mdui-p-t-1" th:text="${notice.getRealTime()}"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/mdui.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/layui.js"></script>
+<script src="/js/MyJS.js"></script>
+</body>
+</html>

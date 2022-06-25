@@ -7,6 +7,7 @@ import com.unbmy.recruit.service.INoticeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,5 +36,20 @@ public class NoticeServiceImpl implements INoticeService {
     @Override
     public Notice getNoticeById(Long id) {
         return noticeMapper.selectById(id);
+    }
+
+    @Override
+    public int updateNotice(Notice notice) {
+        return noticeMapper.updateById(notice);
+    }
+
+    @Override
+    public int deleteNotice(Long id) {
+        return noticeMapper.deleteById(id);
+    }
+
+    @Override
+    public int addNotice(String topic, String content, Date date) {
+        return noticeMapper.insert(new Notice(topic, content, date));
     }
 }

@@ -27,8 +27,15 @@ public class Notice {
         this.time = time;
     }
 
+    public Notice(Long id, String topic, String content, Date time) {
+        this.id = id;
+        this.topic = topic;
+        this.content = content;
+        this.time = time;
+    }
+
     public String getRealTime() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(time);
     }
 }

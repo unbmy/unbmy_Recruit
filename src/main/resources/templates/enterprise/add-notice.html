@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>物业主页</title>
+    <title>添加公告</title>
     <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
     <link rel="stylesheet" href="/css/layui.css" media="all">
     <link rel="icon" href="/images/icon/favicon.ico">
 </head>
-<body class="mdui-theme-primary-blue">
+<body class="mdui-theme-primary-blue mdui-theme-accent-blue">
 <div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
     <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">“春天启动”小区物业管理中心</span>
     <div class="mdui-toolbar-spacer"></div>
@@ -91,48 +91,31 @@
     </div>
     <span class="mdui-col-xs-1"></span>
     <div class="mdui-col-xs-8 mdui-m-t-3">
+        <div>
+            <form th:action="@{/enterprise/add-notice/insert}" method="post">
+                <div class="mdui-textfield mdui-textfield-floating-label"
+                     style="width: 60%">
+                    <label class="mdui-textfield-label">公告标题</label>
+                    <input class="mdui-textfield-input" type="text" name="topic" required/>
+                    <div class="mdui-textfield-error">标题不能为空</div>
+                </div>
 
-        <div class="layui-carousel" id="test1">
-            <div carousel-item>
-                <img src="/images/carousel/1.png">
-                <img src="/images/carousel/2.png">
-                <img src="/images/carousel/3.png">
-            </div>
+                <div class="mdui-textfield mdui-textfield-floating-label"
+                     style="width: 60%">
+                    <label class="mdui-textfield-label">公告内容</label>
+                    <textarea class="mdui-textfield-input" type="text" name="content" required></textarea>
+                    <div class="mdui-textfield-error">内容不能为空</div>
+                </div>
+
+                <div class="mdui-row mdui-m-t-3">
+                    <div class="mdui-col-xs-3"></div>
+                    <div class="mdui-col-xs-2">
+                        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"
+                                type="submit">提交</button>
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <!-- todo -->
-<!--        <div class="mdui-typo-headline mdui-m-t-3">最新公告</div>-->
-<!--        <div class="mdui-typo">-->
-<!--            <hr/>-->
-<!--        </div>-->
-<!--        <div class="mdui-m-t-1" th:each="notice:${latestNoticeList}">-->
-<!--            <div class="mdui-row mdui-p-t-2">-->
-<!--                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${notice.getTopic()}"-->
-<!--                   th:href="|/notice/noticeDetail/${notice.getId()}|" target="_blank"></a>-->
-<!--                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="mdui-row">-->
-<!--            <span class="mdui-col-xs-8"></span>-->
-<!--            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/all-notice}">查看更多</a>-->
-<!--        </div>-->
-
-<!--        <div class="mdui-typo-headline mdui-m-t-3">最新缴费</div>-->
-<!--        <div class="mdui-typo">-->
-<!--            <hr/>-->
-<!--        </div>-->
-<!--        <div class="mdui-m-t-1" th:each="bill:${latestBillList}">-->
-<!--            <div class="mdui-row mdui-p-t-2">-->
-<!--                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${bill.getTopic()}"-->
-<!--                   th:href="|/bill/billDetail/${bill.getId()}|" target="_blank"></a>-->
-<!--                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${bill.getRealBillTime()}"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="mdui-row">-->
-<!--            <span class="mdui-col-xs-8"></span>-->
-<!--            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/bill-unfinished}">查看更多</a>-->
-<!--        </div>-->
-
     </div>
 </div>
 <script src="/js/mdui.min.js"></script>
