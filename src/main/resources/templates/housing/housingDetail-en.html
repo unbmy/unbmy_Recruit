@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>房屋详情</title>
+  <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
+  <link rel="icon" href="/images/icon/favicon.ico">
+</head>
+<body class="mdui-theme-primary-blue">
+<div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
+  <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">房屋详情</span>
+  <div class="mdui-toolbar-spacer"></div>
+  <div class="mdui-col-xs-4">
+    <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
+      <button class="mdui-textfield-icon mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">search</i>
+      </button>
+      <input class="mdui-textfield-input" type="text" placeholder="请输入搜索内容"/>
+      <button class="mdui-textfield-close mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">close</i>
+      </button>
+    </div>
+  </div>
+  <div class="mdui-col-xs-1">
+    <a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon">
+      <i class="mdui-icon material-icons">refresh</i>
+    </a>
+  </div>
+</div>
+
+<div class="mdui-table-fluid">
+  <table class="mdui-table mdui-table-hoverable">
+    <tbody>
+    <tr>
+      <td>房产编号</td>
+      <td th:text="${housing.getId()}"></td>
+    </tr>
+    <tr>
+      <td>房产地址</td>
+      <td th:text="${housing.getTopic()}"></td>
+    </tr>
+    <tr>
+      <td>户主名称</td>
+      <td th:text="${housing.getHost()}"></td>
+    </tr>
+    <tr>
+      <td>居住人数</td>
+      <td th:text="${housing.getPeople()}"></td>
+    </tr>
+
+    <th:block th:if="${housing.getImage()==null}">
+      <tr>
+        <td>户型图</td>
+        <td>暂无</td>
+      </tr>
+    </th:block>
+
+    <th:block th:if="${housing.getImage()!=null}">
+      <tr>
+        <td>户型图</td>
+        <td><img th:src="${housing.getRealImage()}" width="250px" height="250px"></td>
+      </tr>
+    </th:block>
+
+    <tr>
+      <td>房产面积</td>
+      <td th:text="|${housing.getArea()}平方米|"></td>
+    </tr>
+    <tr>
+      <td>房产购置时间</td>
+      <td th:text="${housing.getRealBuyTime()}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mdui-m-t-3">
+  <span class="mdui-col-xs-5"></span>
+  <button class="mdui-btn mdui-color-blue mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-1"
+          mdui-dialog="{target: '#updateHousing'}">修改</button>
+  <button class="mdui-btn mdui-color-red mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-1"
+          mdui-dialog="{target: '#deleteHousing'}">删除</button>
+</div>
+
+<div class="mdui-dialog" id="updateHousing">
+  <form th:action="|/housing/update/${housing.getId()}|" method="post">
+    <div class="mdui-dialog-content">
+      <div class="mdui-textfield">
+        <label class="mdui-textfield-label">房产地址</label>
+        <input class="mdui-textfield-input" type="text" name="topic"
+               th:value="${housing.getTopic()}" required/>
+        <div class="mdui-textfield-error">地址不能为空</div>
+      </div>
+      <div class="mdui-textfield">
+        <label class="mdui-textfield-label">户主名称</label>
+        <input class="mdui-textfield-input" type="text" name="host"
+               th:value="${housing.getHost()}" required/>
+        <div class="mdui-textfield-error">户主不能为空</div>
+      </div>
+      <div class="mdui-textfield">
+        <label class="mdui-textfield-label">居住人数</label>
+        <input class="mdui-textfield-input" type="text" name="people"
+               th:value="${housing.getPeople()}" required/>
+        <div class="mdui-textfield-error">人数不能为空</div>
+      </div>
+    </div>
+    <div class="mdui-dialog-actions">
+      <button class="mdui-btn mdui-ripple" mdui-dialog-close>放弃</button>
+      <button class="mdui-btn mdui-ripple" type="submit">确认</button>
+    </div>
+  </form>
+</div>
+
+<div class="mdui-dialog" id="deleteHousing">
+  <form th:action="|/housing/delete/${housing.getId()}|" method="get">
+    <div class="mdui-dialog-content">确定删除该房产记录吗？</div>
+    <div class="mdui-dialog-content mdui-text-color-red">其后果非常严重！</div>
+    <div class="mdui-dialog-actions">
+      <button class="mdui-btn mdui-ripple" mdui-dialog-close>否</button>
+      <button class="mdui-btn mdui-ripple" type="submit">是</button>
+    </div>
+  </form>
+</div>
+
+<script src="/js/mdui.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/MyJS.js"></script>
+</body>
+</html>

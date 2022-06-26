@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>新增房产</title>
+  <link rel="stylesheet" type="text/css" href="/css/mdui.min.css">
+  <link rel="icon" href="/images/icon/favicon.ico">
+</head>
+<body class="mdui-theme-primary-blue">
+<div class="mdui-toolbar mdui-color-theme mdui-row mdui-shadow-5">
+  <span class="mdui-typo-title mdui-col-xs-4 mdui-text-color-white">新增房产</span>
+  <div class="mdui-toolbar-spacer"></div>
+  <div class="mdui-col-xs-4">
+    <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
+      <button class="mdui-textfield-icon mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">search</i>
+      </button>
+      <input class="mdui-textfield-input" type="text" placeholder="请输入搜索内容"/>
+      <button class="mdui-textfield-close mdui-btn mdui-btn-icon">
+        <i class="mdui-icon material-icons">close</i>
+      </button>
+    </div>
+  </div>
+  <div class="mdui-col-xs-1">
+    <a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon">
+      <i class="mdui-icon material-icons">refresh</i>
+    </a>
+  </div>
+</div>
+
+
+<h3 class="mdui-text-center mdui-typo-display-1">请求详情</h3>
+
+<div class="mdui-typo">
+  <hr/>
+</div>
+
+<div class="mdui-m-t-3 mdui-m-l-3" style="padding-left: 550px">
+
+  <form th:action="|/housing/insert/${request.getId()}|" method="post" enctype="multipart/form-data">
+    <div class="mdui-textfield">
+      <input class="mdui-textfield-input" type="hidden" name="userId"
+             th:value="${request.getUserId()}" />
+    </div>
+
+    <div class="mdui-textfield">
+      <label class="mdui-textfield-label">房产地点</label>
+      <input class="mdui-textfield-input" type="text" name="topic" id="topic" style="width: 40%"
+             th:value="${request.getTopic()}" disabled/>
+    </div>
+
+    <div class="mdui-textfield">
+      <label class="mdui-textfield-label">户主姓名</label>
+      <input class="mdui-textfield-input" type="text" name="host" id="host" style="width: 40%"
+             th:value="${request.getHost()}" disabled/>
+    </div>
+
+    <div class="mdui-textfield">
+      <label class="mdui-textfield-label">居住人数</label>
+      <input class="mdui-textfield-input" type="text" name="people" id="people" style="width: 40%"
+             th:value="${request.getPeople()}" disabled/>
+    </div>
+
+    <div class="mdui-m-t-3">
+      <label>户型图（可选）,只支持上传jpg格式图片,大小不可超过10MB</label>
+    </div>
+
+    <div class="mdui-m-t-3">
+      <input class="mdui-ripple mdui-color-white" type="file" name="image"/>
+    </div>
+
+    <p th:text="${upload_err_msg}" class="mdui-m-t-1 mdui-text-color-red"></p>
+
+    <div class="mdui-textfield">
+      <label class="mdui-textfield-label">房产面积(m²)</label>
+      <input class="mdui-textfield-input" type="text" name="area" required style="width: 40%"/>
+      <div class="mdui-textfield-error">面积不能为空</div>
+    </div>
+
+    <div>
+      <input type="datetime-local" class="layui-input"
+             name="date" placeholder="请选择购置时间" required>
+    </div>
+
+    <div class="mdui-m-t-3" style="margin-left: 100px">
+      <button class="mdui-btn mdui-color-blue mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-1"
+              onclick="enable()" type="submit">提交</button>
+      <button class="mdui-btn mdui-color-red mdui-text-color-white mdui-ripple mdui-col-xs-1 mdui-m-l-1"
+              mdui-dialog="{target: '#deleteRequest'}">删除</button>
+    </div>
+  </form>
+</div>
+
+<div class="mdui-dialog" id="deleteRequest">
+  <form th:action="|/request/delete/${request.getId()}|" method="get">
+    <div class="mdui-dialog-content">确定删除该请求吗？</div>
+    <div class="mdui-dialog-actions">
+      <button class="mdui-btn mdui-ripple" mdui-dialog-close>否</button>
+      <button class="mdui-btn mdui-ripple" type="submit">是</button>
+    </div>
+  </form>
+</div>
+
+<script src="/js/mdui.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/MyJS.js"></script>
+<script>
+  function enable(){
+    $("#topic").attr("disabled", false);
+    $("#host").attr("disabled", false);
+    $("#people").attr("disabled", false);
+  };
+</script>
+</body>
+</html>

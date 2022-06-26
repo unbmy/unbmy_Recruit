@@ -1,12 +1,7 @@
 package com.unbmy.recruit.controller;
 
-import com.unbmy.recruit.pojo.Account;
-import com.unbmy.recruit.pojo.Bill;
-import com.unbmy.recruit.pojo.Maintenance;
-import com.unbmy.recruit.pojo.Notice;
-import com.unbmy.recruit.service.IBillService;
-import com.unbmy.recruit.service.IMaintenanceService;
-import com.unbmy.recruit.service.INoticeService;
+import com.unbmy.recruit.pojo.*;
+import com.unbmy.recruit.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +22,10 @@ public class EnterpriseController {
     private IMaintenanceService maintenanceService;
     @Resource
     private IBillService billService;
+    @Resource
+    private IHousingService housingService;
+    @Resource
+    private IRequestService requestService;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpSession session){
@@ -34,6 +33,29 @@ public class EnterpriseController {
         Account account = (Account) session.getAttribute("account");
         modelAndView.setViewName("/enterprise/index");
         return modelAndView;
+    }
+
+    @RequestMapping("/all-housing")
+    public ModelAndView allHousing(){
+        ModelAndView modelAndView = new ModelAndView();
+        List<Housing> allHousing = housingService.getAllHousing();
+        modelAndView.addObject("allHousing", allHousing);
+        modelAndView.setViewName("/enterprise/all-housing");
+        return modelAndView;
+    }
+
+    @RequestMapping("/add-housing")
+    public ModelAndView addHousing(){
+        ModelAndView modelAndView = new ModelAndView();
+        List<Request> allRequest = requestService.getAllRequest();
+        modelAndView.addObject("allRequest", allRequest);
+        modelAndView.setViewName("/enterprise/add-housing");
+        return modelAndView;
+    }
+
+    @RequestMapping("/eval-housing")
+    public ModelAndView evalHousing(){
+        return new ModelAndView("/enterprise/eval-housing");
     }
 
     @RequestMapping("/all-notice")
