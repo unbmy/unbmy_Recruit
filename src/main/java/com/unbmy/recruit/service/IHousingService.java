@@ -11,6 +11,7 @@ public interface IHousingService {
 
     List<Housing> getAllHousing();
     Housing getHousingById(Long id);
+    Housing getHousingByIdEn(Long id);
     int addHousing(Housing housing);
     int updateHousing(Housing housing);
     int deleteHousing(Long id);

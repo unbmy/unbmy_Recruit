@@ -7,4 +7,10 @@
         insert into housing_user values (#{userId}, #{housingId});
     </insert>
 
+    <select id="getHousingById" parameterType="long" resultType="housing">
+        select id, topic, host, people, image, area, buy_date, is_deleted
+        from tb_housing, housing_user
+        where userId = #{userId} and housingId = tb_housing.id;
+    </select>
+
 </mapper>

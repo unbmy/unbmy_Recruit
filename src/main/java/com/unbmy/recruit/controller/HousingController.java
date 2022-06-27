@@ -34,7 +34,7 @@ public class HousingController {
     @RequestMapping("/housingDetail-en/{id}")
     public ModelAndView housingDetailEn(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView();
-        Housing housing = housingService.getHousingById(id);
+        Housing housing = housingService.getHousingByIdEn(id);
         modelAndView.addObject("housing", housing);
         modelAndView.setViewName("/housing/housingDetail-en");
         return modelAndView;
@@ -78,7 +78,7 @@ public class HousingController {
                 image.transferTo(newFile);
                 housing.setImage(filename);
                 housingService.addHousing(housing);
-                housingService.addHousingUser(id, housing.getId());
+                housingService.addHousingUser(userId, housing.getId());
                 requestService.deleteRequest(id);
             } else {
                 modelAndView.addObject("upload_err_msg", "暂不支持上传该格式文件！");

@@ -23,6 +23,11 @@ public class HousingServiceImpl implements IHousingService {
 
     @Override
     public Housing getHousingById(Long id) {
+        return housingMapper.getHousingById(id);
+    }
+
+    @Override
+    public Housing getHousingByIdEn(Long id) {
         return housingMapper.selectById(id);
     }
 

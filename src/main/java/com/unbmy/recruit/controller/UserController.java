@@ -2,10 +2,7 @@ package com.unbmy.recruit.controller;
 
 
 import com.unbmy.recruit.pojo.*;
-import com.unbmy.recruit.service.IBillService;
-import com.unbmy.recruit.service.IMaintenanceService;
-import com.unbmy.recruit.service.INoticeService;
-import com.unbmy.recruit.service.IUserService;
+import com.unbmy.recruit.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +33,10 @@ public class UserController {
     private IBillService billService;
     @Resource
     private IUserService userService;
+    @Resource
+    private IRequestService requestService;
+    @Resource
+    private IHousingService housingService;
 
     private int randomCode = (int) ((Math.random()*9+1)*100000);
 
@@ -56,6 +58,16 @@ public class UserController {
         List<Notice> allNoticeList = noticeService.getAllNotice();
         modelAndView.addObject("allNoticeList", allNoticeList);
         modelAndView.setViewName("/user/all-notice");
+        return modelAndView;
+    }
+
+    @RequestMapping("/my-housing")
+    public ModelAndView myHousing(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+        Account account = (Account) session.getAttribute("account");
+        Housing housing = housingService.getHousingById(account.getId());
+        modelAndView.addObject("housing", housing);
+        modelAndView.setViewName("/user/my-housing");
         return modelAndView;
     }
 

@@ -10,5 +10,6 @@ import org.apache.ibatis.annotations.Param;
 public interface HousingMapper extends BaseMapper<Housing> {
 
     void addHousingUser(@Param("userId")Long userId, @Param("housingId")Long housingId);
+    Housing getHousingById(@Param("userId")Long userId);
 
 }

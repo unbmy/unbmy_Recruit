@@ -7,4 +7,5 @@ import com.unbmy.recruit.pojo.Request;
  * @author Unbmy
  */
 public interface RequestMapper extends BaseMapper<Request> {
+
 }
