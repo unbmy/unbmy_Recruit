@@ -95,7 +95,7 @@
     <div class="mdui-m-t-1" th:each="maintenance:${completeMaintenance}">
       <div class="mdui-row mdui-m-t-2">
         <div class="mdui-col-xs-5 mdui-typo-subheading" th:text="${maintenance.getTopic()}"></div>
-        <a class="mdui-col-xs-3 mdui-typo-subheading-opacity"
+        <a class="mdui-col-xs-3 mdui-typo-subheading-opacity mdui-text-color-blue"
            th:href="|/maintenance/maintenanceDetail/${maintenance.getId()}|" target="_blank">查看详情</a>
       </div>
     </div>

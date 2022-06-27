@@ -95,7 +95,7 @@
         <div class="mdui-m-t-2" th:each="bill:${unfinishedBill}">
             <div class="mdui-row mdui-m-t-2">
                 <div class="mdui-col-xs-5 mdui-typo-subheading" th:text="${bill.getTopic()}"></div>
-                <a class="mdui-col-xs-2 mdui-typo-subheading-opacity"
+                <a class="mdui-col-xs-2 mdui-typo-subheading-opacity mdui-text-color-blue"
                    th:href="|/bill/billDetail/${bill.getId()}|" target="_blank">查看详情</a>
             </div>
         </div>
