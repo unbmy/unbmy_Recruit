@@ -53,11 +53,6 @@ public class EnterpriseController {
         return modelAndView;
     }
 
-    @RequestMapping("/eval-housing")
-    public ModelAndView evalHousing(){
-        return new ModelAndView("/enterprise/eval-housing");
-    }
-
     @RequestMapping("/all-notice")
     public ModelAndView allNotice(){
         ModelAndView modelAndView = new ModelAndView();
