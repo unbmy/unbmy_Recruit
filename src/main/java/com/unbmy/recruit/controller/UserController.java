@@ -3,6 +3,7 @@ package com.unbmy.recruit.controller;
 
 import com.unbmy.recruit.pojo.*;
 import com.unbmy.recruit.service.*;
+import com.unbmy.recruit.vo.NoticeVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,10 +54,19 @@ public class UserController {
     }
 
     @RequestMapping("/all-notice")
-    public ModelAndView noticeLatest(){
+    public ModelAndView noticeAll(){
         ModelAndView modelAndView = new ModelAndView();
         List<Notice> allNoticeList = noticeService.getAllNotice();
         modelAndView.addObject("allNoticeList", allNoticeList);
+        modelAndView.setViewName("/user/all-notice");
+        return modelAndView;
+    }
+
+    @RequestMapping("all-notice/{current}")
+    public ModelAndView noticeQuery(@PathVariable int current){
+        ModelAndView modelAndView = new ModelAndView();
+        NoticeVo noticeVo = noticeService.queryNotice(current);
+        modelAndView.addObject("noticeVo", noticeVo);
         modelAndView.setViewName("/user/all-notice");
         return modelAndView;
     }

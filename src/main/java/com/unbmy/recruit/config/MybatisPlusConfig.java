@@ -6,10 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author Unbmy
  */
+@Configuration
 public class MybatisPlusConfig {
 
     @Bean
