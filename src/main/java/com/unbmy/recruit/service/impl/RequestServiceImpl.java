@@ -1,5 +1,6 @@
 package com.unbmy.recruit.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.unbmy.recruit.mapper.RequestMapper;
 import com.unbmy.recruit.pojo.Request;
 import com.unbmy.recruit.service.IRequestService;
@@ -19,6 +20,13 @@ public class RequestServiceImpl implements IRequestService {
     @Override
     public List<Request> getAllRequest() {
         return requestMapper.selectList(null);
+    }
+
+    @Override
+    public List<Request> getLatestRequest() {
+        QueryWrapper<Request> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("id");
+        return requestMapper.selectList(queryWrapper);
     }
 
     @Override

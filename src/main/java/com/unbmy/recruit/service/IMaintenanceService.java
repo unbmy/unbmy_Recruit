@@ -13,6 +13,7 @@ public interface IMaintenanceService {
     List<Maintenance> getAllUnhandledMaintenance();
     List<Maintenance> getUnhandledMaintenance(Long id);
     List<Maintenance> getCompleteMaintenance(Long id);
+    List<Maintenance> getLatestMaintenance();
     Maintenance getMaintenanceById(Long id);
     int addMaintenance(String topic, String place, String description, String photo);
     int updateMaintenance(Maintenance maintenance);

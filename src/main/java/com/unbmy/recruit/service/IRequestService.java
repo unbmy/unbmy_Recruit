@@ -10,6 +10,7 @@ import java.util.List;
 public interface IRequestService {
 
     List<Request> getAllRequest();
+    List<Request> getLatestRequest();
     Request getRequestById(Long id);
     int addRequest(Request request);
     int deleteRequest(Long id);

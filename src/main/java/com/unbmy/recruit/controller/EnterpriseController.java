@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -28,9 +27,12 @@ public class EnterpriseController {
     private IRequestService requestService;
 
     @RequestMapping("/index")
-    public ModelAndView index(HttpSession session){
+    public ModelAndView index(){
         ModelAndView modelAndView = new ModelAndView();
-        Account account = (Account) session.getAttribute("account");
+        List<Maintenance> latestMaintenance = maintenanceService.getLatestMaintenance();
+        modelAndView.addObject("latestMaintenance", latestMaintenance);
+        List<Request> latestRequest = requestService.getLatestRequest();
+        modelAndView.addObject("latestRequest", latestRequest);
         modelAndView.setViewName("/enterprise/index");
         return modelAndView;
     }

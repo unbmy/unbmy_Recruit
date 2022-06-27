@@ -29,36 +29,55 @@
 
             <li class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
-                <a class="mdui-list-item-content" th:href="@{/user/index}">首页</a>
+                <a class="mdui-list-item-content" th:href="@{/enterprise/index}">首页</a>
             </li>
 
-            <li class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon material-icons">announcement</i>
-                <a class="mdui-list-item-content" th:href="@{/user/all-notice}">所有公告</a>
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">account_balance</i>
+                    <div class="mdui-list-item-content">房产模块</div>
+                    <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+                </div>
+                <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/all-housing}">所有房产</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/add-housing}">新增房产</a>
+                </ul>
+            </li>
+
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">announcement</i>
+                    <div class="mdui-list-item-content">公告模块</div>
+                    <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+                </div>
+                <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/all-notice}">所有公告</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/add-notice}">新增公告</a>
+                </ul>
             </li>
 
             <li class="mdui-collapse-item">
                 <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
                     <i class="mdui-list-item-icon mdui-icon material-icons">build</i>
-                    <div class="mdui-list-item-content">我的报修</div>
+                    <div class="mdui-list-item-content">报修模块</div>
                     <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
                 </div>
                 <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-upload}">上传报修</a>
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-finish}">已完成报修</a>
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/maintenance-not-finish}">待处理报修</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/unhandledMaintenance}">未处理报修</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/handledMaintenance}">已处理报修</a>
                 </ul>
             </li>
 
             <li class="mdui-collapse-item">
                 <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
                     <i class="mdui-list-item-icon mdui-icon material-icons">book</i>
-                    <div class="mdui-list-item-content">我的缴费</div>
+                    <div class="mdui-list-item-content">缴费模块</div>
                     <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
                 </div>
                 <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/bill-completed}">已交账单</a>
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/bill-unfinished}">未交账单</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/bill-unpaid}">未交账单</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/bill-paid}">已交账单</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/bill-add}">新增账单</a>
                 </ul>
             </li>
 
@@ -69,8 +88,8 @@
                     <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
                 </div>
                 <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/modify-email}">修改邮箱</a>
-                    <a class="mdui-list-item mdui-ripple" th:href="@{/user/modify-password}">修改密码</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/modify-phone}">修改手机号</a>
+                    <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/modify-password}">修改密码</a>
                 </ul>
             </li>
 

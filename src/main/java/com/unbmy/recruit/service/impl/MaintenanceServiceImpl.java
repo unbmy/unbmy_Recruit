@@ -42,6 +42,15 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
     }
 
     @Override
+    public List<Maintenance> getLatestMaintenance() {
+        QueryWrapper<Maintenance> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("time");
+        queryWrapper.last("limit 3");
+        queryWrapper.eq("status", 0);
+        return maintenanceMapper.selectList(queryWrapper);
+    }
+
+    @Override
     public Maintenance getMaintenanceById(Long id) {
         return maintenanceMapper.selectById(id);
     }

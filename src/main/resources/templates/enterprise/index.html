@@ -112,38 +112,36 @@
             </div>
         </div>
 
-        <!-- todo -->
-<!--        <div class="mdui-typo-headline mdui-m-t-3">最新公告</div>-->
-<!--        <div class="mdui-typo">-->
-<!--            <hr/>-->
-<!--        </div>-->
-<!--        <div class="mdui-m-t-1" th:each="notice:${latestNoticeList}">-->
-<!--            <div class="mdui-row mdui-p-t-2">-->
-<!--                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${notice.getTopic()}"-->
-<!--                   th:href="|/notice/noticeDetail/${notice.getId()}|" target="_blank"></a>-->
-<!--                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="mdui-row">-->
-<!--            <span class="mdui-col-xs-8"></span>-->
-<!--            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/all-notice}">查看更多</a>-->
-<!--        </div>-->
+        <div class="mdui-typo-headline mdui-m-t-3">最新报修</div>
+        <div class="mdui-typo">
+            <hr/>
+        </div>
+        <div class="mdui-m-t-1" th:each="maintenance:${latestMaintenance}">
+            <div class="mdui-row mdui-p-t-2">
+                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${maintenance.getTopic()}"
+                   th:href="|/maintenance/maintenanceDetail-en/${maintenance.getId()}|" target="_blank"></a>
+                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${maintenance.getRealTime()}"></div>
+            </div>
+        </div>
+        <div class="mdui-row">
+            <span class="mdui-col-xs-8"></span>
+            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/enterprise/unhandledMaintenance}">查看更多</a>
+        </div>
 
-<!--        <div class="mdui-typo-headline mdui-m-t-3">最新缴费</div>-->
-<!--        <div class="mdui-typo">-->
-<!--            <hr/>-->
-<!--        </div>-->
-<!--        <div class="mdui-m-t-1" th:each="bill:${latestBillList}">-->
-<!--            <div class="mdui-row mdui-p-t-2">-->
-<!--                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${bill.getTopic()}"-->
-<!--                   th:href="|/bill/billDetail/${bill.getId()}|" target="_blank"></a>-->
-<!--                <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${bill.getRealBillTime()}"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="mdui-row">-->
-<!--            <span class="mdui-col-xs-8"></span>-->
-<!--            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/bill-unfinished}">查看更多</a>-->
-<!--        </div>-->
+        <div class="mdui-typo-headline mdui-m-t-3">最新住房</div>
+        <div class="mdui-typo">
+            <hr/>
+        </div>
+        <div class="mdui-m-t-1" th:each="request:${latestRequest}">
+            <div class="mdui-row mdui-p-t-2">
+                <a class="mdui-col-xs-5 mdui-typo-subheading" th:text="${request.getTopic()}"
+                   th:href="|/request/requestDetail-en/${request.getId()}|" target="_blank"></a>
+            </div>
+        </div>
+        <div class="mdui-row">
+            <span class="mdui-col-xs-8"></span>
+            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/enterprise/add-housing}">查看更多</a>
+        </div>
 
     </div>
 </div>
