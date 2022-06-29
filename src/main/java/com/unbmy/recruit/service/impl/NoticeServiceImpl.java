@@ -47,7 +47,9 @@ public class NoticeServiceImpl implements INoticeService {
     public NoticeVo queryNotice(Integer current) {
         NoticeVo noticeVo = new NoticeVo();
         IPage<Notice> page = new Page<>(current, SIZE);
-        noticeMapper.selectPage(page, null);
+        QueryWrapper<Notice> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("time");
+        noticeMapper.selectPage(page, queryWrapper);
         noticeVo.setCurrent(current);
         noticeVo.setSize(SIZE);
         noticeVo.setTotalPage(page.getPages());

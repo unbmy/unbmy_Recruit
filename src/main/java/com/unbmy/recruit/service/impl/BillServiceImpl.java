@@ -54,6 +54,11 @@ public class BillServiceImpl implements IBillService {
     }
 
     @Override
+    public List<Bill> queryBill(String keyword, Long id) {
+        return billMapper.queryBill(keyword, id);
+    }
+
+    @Override
     public Bill getBillById(Long id) {
         return billMapper.selectById(id);
     }

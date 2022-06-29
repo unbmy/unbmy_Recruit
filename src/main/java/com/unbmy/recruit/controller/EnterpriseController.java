@@ -2,7 +2,9 @@ package com.unbmy.recruit.controller;
 
 import com.unbmy.recruit.pojo.*;
 import com.unbmy.recruit.service.*;
+import com.unbmy.recruit.vo.NoticeVo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,6 +62,15 @@ public class EnterpriseController {
         ModelAndView modelAndView = new ModelAndView();
         List<Notice> allNoticeList = noticeService.getAllNotice();
         modelAndView.addObject("allNoticeList", allNoticeList);
+        modelAndView.setViewName("/enterprise/all-notice");
+        return modelAndView;
+    }
+
+    @RequestMapping("/all-notice/{current}")
+    public ModelAndView noticeQuery(@PathVariable Integer current){
+        ModelAndView modelAndView = new ModelAndView();
+        NoticeVo noticeVo = noticeService.queryNotice(current);
+        modelAndView.addObject("noticeVo", noticeVo);
         modelAndView.setViewName("/enterprise/all-notice");
         return modelAndView;
     }

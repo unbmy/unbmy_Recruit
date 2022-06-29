@@ -3,14 +3,12 @@ package com.unbmy.recruit.controller;
 import com.unbmy.recruit.pojo.Bill;
 import com.unbmy.recruit.service.IBillService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Unbmy
@@ -78,6 +76,18 @@ public class BillController {
     public ModelAndView delete(@PathVariable Long id){
         billService.deleteBill(id);
         return new ModelAndView("redirect:/enterprise/bill-paid");
+    }
+
+    @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView retrieve(
+            @RequestParam("userId") Long userId,
+            @RequestParam("keyword") String keyword){
+        ModelAndView modelAndView = new ModelAndView();
+        List<Bill> unfinishedBill = billService.queryBill(keyword, userId);
+        modelAndView.setViewName("/user/bill-unfinished");
+        modelAndView.addObject("unfinishedBill", unfinishedBill);
+        return modelAndView;
     }
 
 }

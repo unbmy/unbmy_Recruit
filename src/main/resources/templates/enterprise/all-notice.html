@@ -52,7 +52,7 @@
           <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
         </div>
         <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/all-notice}">所有公告</a>
+          <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/all-notice/1}">所有公告</a>
           <a class="mdui-list-item mdui-ripple" th:href="@{/enterprise/add-notice}">新增公告</a>
         </ul>
       </li>
@@ -107,12 +107,33 @@
     <div class="mdui-typo">
       <hr/>
     </div>
-    <div class="mdui-m-t-1" th:each="notice:${allNoticeList}">
+<!--    <div class="mdui-m-t-1" th:each="notice:${allNoticeList}">-->
+<!--      <div class="mdui-row mdui-m-t-2">-->
+<!--        <a class="mdui-col-xs-5 mdui-typo-subheading mdui-p-t-1" th:text="${notice.getTopic()}"-->
+<!--           th:href="|/notice/noticeDetail-en/${notice.getId()}|" target="_blank"></a>-->
+<!--        <div class="mdui-col-xs-2 mdui-typo-subheading-opacity mdui-p-t-1" th:text="${notice.getRealTime()}"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div class="mdui-m-t-1" th:each="notice:${noticeVo.getNoticeList()}">
       <div class="mdui-row mdui-m-t-2">
-        <a class="mdui-col-xs-5 mdui-typo-subheading mdui-p-t-1" th:text="${notice.getTopic()}"
-           th:href="|/notice/noticeDetail-en/${notice.getId()}|" target="_blank"></a>
-        <div class="mdui-col-xs-2 mdui-typo-subheading-opacity mdui-p-t-1" th:text="${notice.getRealTime()}"></div>
+        <a class="mdui-col-xs-5 mdui-typo-subheading mdui-text-color-blue" th:text="${notice.getTopic()}"
+           th:href="|/notice/noticeDetail/${notice.getId()}|" target="_blank"></a>
+        <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>
       </div>
+    </div>
+
+    <div class="mdui-row mdui-m-t-4">
+      <span class="mdui-col-xs-3"></span>
+      <th:block th:if="${noticeVo.current != 1}">
+        <a class="mdui-text-color-blue mdui-col-xs-1"
+           th:href="|/enterprise/all-notice/${noticeVo.getCurrent()-1}|">上一页</a>
+      </th:block>
+
+      <th:block th:if="${noticeVo.current != noticeVo.getTotalPage()}">
+        <a class="mdui-text-color-blue mdui-col-xs-1"
+           th:href="|/enterprise/all-notice/${noticeVo.getCurrent()+1}|">下一页</a>
+      </th:block>
     </div>
   </div>
 </div>

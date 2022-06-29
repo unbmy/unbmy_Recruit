@@ -15,6 +15,7 @@ public interface IBillService {
     List<Bill> getCompletedBill(Long id);
     List<Bill> getUnfinishedBill(Long id);
     List<Bill> getLatestBill(Long id);
+    List<Bill> queryBill(String keyword, Long id);
     Bill getBillById(Long id);
     void billCost(Long id);
     int updateBill(Bill bill);
