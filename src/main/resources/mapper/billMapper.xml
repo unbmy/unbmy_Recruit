@@ -35,7 +35,7 @@
 
     <select id="queryBill" resultType="bill">
         select distinct id, topic, description, cost, bill_time, cost_time, status, is_deleted from bill_user, tb_bill
-        where userId = #{userId} and status = 0 and
+        where userId = #{userId} and status = 0 and is_deleted = 0 and
         (id like concat('%',#{keyword},'%')
         or topic like concat('%',#{keyword},'%')
         or description like concat('%',#{keyword},'%'))
