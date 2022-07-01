@@ -118,7 +118,7 @@
     <div class="mdui-m-t-1" th:each="notice:${noticeVo.getNoticeList()}">
       <div class="mdui-row mdui-m-t-2">
         <a class="mdui-col-xs-5 mdui-typo-subheading mdui-text-color-blue" th:text="${notice.getTopic()}"
-           th:href="|/notice/noticeDetail/${notice.getId()}|" target="_blank"></a>
+           th:href="|/notice/noticeDetail-en/${notice.getId()}|" target="_blank"></a>
         <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${notice.getRealTime()}"></div>
       </div>
     </div>

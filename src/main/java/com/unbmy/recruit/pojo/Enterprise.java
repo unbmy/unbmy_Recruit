@@ -17,7 +17,6 @@ public class Enterprise implements Account{
     private String enterpriseName;
     private String address;
     private String phone;
-    private Integer isRegistered;
     @TableLogic
     private Integer isDeleted;
 
