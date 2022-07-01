@@ -91,6 +91,12 @@
   <div class="mdui-col-xs-8 mdui-m-t-3">
     <form th:action="@{/user/maintenance-upload/upload}" method="post" enctype="multipart/form-data">
       <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">报修标题</label>
+        <input class="mdui-textfield-input" type="text" name="topic" maxlength="25" required />
+        <div class="mdui-textfield-error">标题不能为空</div>
+      </div>
+
+      <div class="mdui-textfield mdui-textfield-floating-label">
         <label class="mdui-textfield-label">报修地点</label>
         <input class="mdui-textfield-input" type="text" name="place" maxlength="255" required />
         <div class="mdui-textfield-error">地点不能为空</div>

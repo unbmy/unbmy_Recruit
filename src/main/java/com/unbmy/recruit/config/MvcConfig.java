@@ -19,4 +19,9 @@ public class MvcConfig implements WebMvcConfigurer {
                 "/bill/**", "housing/**", "maintenance/**", "request/**");
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/maintenance/**", "/housing/**").addResourceLocations("file:D:\\upload\\");
+    }
+
 }

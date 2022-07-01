@@ -69,7 +69,7 @@ public class HousingController {
             if (".jpg".equals(suffix)){
                 String filename = UUID.randomUUID() + suffix;
                 System.out.println(filename);
-                String path = "D:\\Workspace\\Java\\Recruit\\src\\main\\resources\\static\\upload";
+                String path = "D:\\upload";
                 File newFile = new File(path, filename);
                 File parentFile = newFile.getParentFile();
                 if (!parentFile.exists()){

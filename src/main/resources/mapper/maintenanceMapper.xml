@@ -13,4 +13,8 @@
         where userId = #{id} and mtId = id and status = 1;
     </select>
 
+    <insert id="addUserMaintenance" parameterType="java.util.List">
+        insert into mt_user values (#{userId}, #{mtId})
+    </insert>
+
 </mapper>

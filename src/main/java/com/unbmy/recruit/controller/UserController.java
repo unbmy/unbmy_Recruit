@@ -62,7 +62,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping("all-notice/{current}")
+    @RequestMapping("/all-notice/{current}")
     public ModelAndView noticeQuery(@PathVariable int current){
         ModelAndView modelAndView = new ModelAndView();
         NoticeVo noticeVo = noticeService.queryNotice(current);
@@ -90,24 +90,26 @@ public class UserController {
     public ModelAndView maintenanceUploadAction(@RequestParam String topic,
                                                 @RequestParam String place,
                                                 @RequestParam String description,
-                                                @RequestParam MultipartFile file) throws IOException {
+                                                @RequestParam MultipartFile file,
+                                                HttpSession session) throws IOException {
+        Account account = (Account) session.getAttribute("account");
         ModelAndView modelAndView = new ModelAndView();
         if (file.isEmpty()){
-            maintenanceService.addMaintenance(topic, place, description, null);
+            maintenanceService.addMaintenance(topic, place, description, null, account.getId());
         } else {
             String originalName = file.getOriginalFilename();
             String suffix = originalName.substring(originalName.lastIndexOf("."));
             if (".png".equals(suffix)){
                 String filename = UUID.randomUUID() + suffix;
                 System.out.println(filename);
-                String path = "D:\\Workspace\\Java\\Recruit\\src\\main\\resources\\static\\upload";
+                String path = "D:\\upload";
                 File newFile = new File(path, filename);
                 File parentFile = newFile.getParentFile();
                 if (!parentFile.exists()){
                     parentFile.mkdir();
                 }
                 file.transferTo(newFile);
-                maintenanceService.addMaintenance(topic, place, description, filename);
+                maintenanceService.addMaintenance(topic, place, description, filename, account.getId());
             } else {
                 modelAndView.addObject("upload_err_msg", "暂不支持上传该格式文件！");
             }

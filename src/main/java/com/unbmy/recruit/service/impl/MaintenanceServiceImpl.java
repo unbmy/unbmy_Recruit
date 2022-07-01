@@ -56,8 +56,16 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
     }
 
     @Override
-    public int addMaintenance(String topic, String place, String description, String photo) {
-        return maintenanceMapper.insert(new Maintenance(topic, place, description, photo));
+    public void addUserMaintenance(Long userId, Long mtId) {
+        maintenanceMapper.addUserMaintenance(userId, mtId);
+    }
+
+    @Override
+    public int addMaintenance(String topic, String place, String description, String photo, Long userId) {
+        Maintenance maintenance = new Maintenance(topic, place, description, photo);
+        maintenanceMapper.insert(maintenance);
+        addUserMaintenance(userId, maintenance.getId());
+        return 0;
     }
 
     @Override

@@ -39,6 +39,6 @@ public class Housing {
     }
 
     public String getRealImage(){
-        return "\\upload\\" + image;
+        return "/housing/" + image;
     }
 }

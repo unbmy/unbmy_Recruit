@@ -125,10 +125,12 @@
                 <div class="mdui-col-xs-3 mdui-typo-subheading-opacity" th:text="${bill.getRealBillTime()}"></div>
             </div>
         </div>
-        <div class="mdui-row">
-            <span class="mdui-col-xs-8"></span>
-            <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/bill-unfinished}">查看更多</a>
-        </div>
+        <th:block th:if="${latestBillList.size() != 0}">
+            <div class="mdui-row">
+                <span class="mdui-col-xs-8"></span>
+                <a class="mdui-col-xs-2 mdui-text-color-blue" th:href="@{/user/bill-unfinished}">查看更多</a>
+            </div>
+        </th:block>
 
     </div>
 </div>

@@ -3,6 +3,7 @@ package com.unbmy.recruit.pojo;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Maintenance {
 
     private Long id;
@@ -45,6 +47,6 @@ public class Maintenance {
     }
 
     public String getRealPhoto(){
-        return "\\upload\\" + photo;
+        return "/maintenance/" + photo;
     }
 }
